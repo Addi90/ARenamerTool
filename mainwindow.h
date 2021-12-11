@@ -32,6 +32,10 @@ private slots:
     void on_pushButton_clicked();
     void on_treeView_selectionChanged();
     void on_pushButton_2_clicked();
-    void on_checkBox_clicked();
+    void on_checkBox_stateChanged(int arg1);
+    void on_checkBox_2_stateChanged(int arg1);
+
+    void on_checkBox_3_stateChanged(int arg1);
+    void on_checkBox_4_stateChanged(int arg1);
 };
 #endif // MAINWINDOW_H

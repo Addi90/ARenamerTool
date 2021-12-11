@@ -3,22 +3,22 @@
 
 const QString &RenameFile::getCurrName() const
 {
-    return currName;
+    return baseName;
 }
 
 void RenameFile::setCurrName(const QString &newCurrName)
 {
-    currName = newCurrName;
+    baseName = newCurrName;
 }
 
 const QString &RenameFile::getNewName() const
 {
-    return newName;
+    return newBaseName;
 }
 
 void RenameFile::setNewName(const QString &newNewName)
 {
-    newName = newNewName;
+    newBaseName = newNewName;
 }
 
 const QModelIndex &RenameFile::getModelIndex() const
@@ -45,17 +45,27 @@ void RenameFile::setFile(QFile *newFile)
 
 bool RenameFile::renameFile()
 {
-    if(newName != "" && newName != currName){
-        return file->rename(fPath+"/"+newName);
+    if(newBaseName != "" && newBaseName != baseName){
+        return file->rename(filePath+"/" + newBaseName + fileEnding);
     }
     return false;
 }
 
 RenameFile::RenameFile(const QModelIndex &modelIndex)
 {
-    currName = modelIndex.data().toString();
-    newName = currName;
+
     modIndex = modelIndex;
-    fPath = modelIndex.siblingAtColumn(5).data().toString();
-    file = new QFile(fPath+"/"+currName);
+    filePath = modelIndex.siblingAtColumn(5).data().toString();
+    file = new QFile(filePath+"/"+modelIndex.data().toString());
+
+    int dotPos = modelIndex.data().toString().indexOf('.');
+    if(dotPos > -1){
+        baseName = modelIndex.data().toString().left(dotPos);
+        fileEnding = modelIndex.data().toString().right(modelIndex.data().toString().length() - dotPos);
+    }
+    else{
+        baseName = modelIndex.data().toString();
+        fileEnding = "";
+    }
+    newBaseName = baseName;
 }

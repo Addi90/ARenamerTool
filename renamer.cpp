@@ -18,24 +18,26 @@ Renamer::Renamer()
 
 }
 
-QString Renamer::rename(QString currName)
+QString Renamer::rename(QString baseName)
 { 
     int count = 0;
 
     if(modifiers & PREPEND){
-        currName = PrependModifier::modify(currName);
+        baseName = PrependModifier::modify(baseName);
     }
     if(modifiers & APPEND){
+        baseName = AppendModifier::modify(baseName);
     }
 
-    return currName;
+    return baseName;
 }
+
 
 int Renamer::save()
 {
     int count = 0;
     foreach(RenameFile* rFile,files){
-        rFile->newName = rename(rFile->currName);
+        rFile->newBaseName = rename(rFile->baseName);
         if(rFile->renameFile()){
             count++;
             qDebug() << "renamed to: " << rFile->getFile()->fileName();
@@ -51,9 +53,9 @@ QString Renamer::preview(const int row)
     foreach(RenameFile* rFile,files){
         if(rFile->modIndex.row() == row){
             //rFile->setNewName("NEW"+rFile->getCurrName());
-            QString previewName = rFile->currName;
+            QString previewName = rFile->baseName;
             previewName = rename(previewName);
-            return previewName;
+            return previewName + rFile->fileEnding;
             break;
         };
     }

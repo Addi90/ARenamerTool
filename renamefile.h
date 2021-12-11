@@ -4,6 +4,7 @@
 #include <QString>
 #include <QModelIndex>
 #include <QFile>
+#include <QFileInfo>
 
 class RenameFile : public QObject
 {
@@ -13,9 +14,10 @@ Q_OBJECT
 public:
     QModelIndex modIndex;
     QFile *file;
-    QString currName;
-    QString newName;
-    QString fPath;
+    QString baseName;
+    QString newBaseName;
+    QString fileEnding;
+    QString filePath;
 
     RenameFile(const QModelIndex &modelIndex);
 

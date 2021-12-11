@@ -7,6 +7,8 @@
 #include "renamefile.h"
 #include "Modifier.h"
 #include "prependmodifier.h"
+#include "appendmodifier.h"
+
 
 
 class Renamer
@@ -29,7 +31,7 @@ public:
     static QList<RenameFile*> files;
     static unsigned int modifiers;
 
-    static QString preview(const int);
+    static QString preview(const int );
     const QList<RenameFile*> &getFiles() const;
     static void setFiles(const QList<RenameFile*> &newFiles);
 
