@@ -1,7 +1,6 @@
 #ifndef PREPENDMODIFIER_H
 #define PREPENDMODIFIER_H
 
-#include <QDebug>
 #include "modifier.h"
 #include "renamefile.h"
 

@@ -9,19 +9,27 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     connect(ui->lineEdit_2,
             &QLineEdit::textChanged,
-            &PrependModifier::prependString
+            &AddModifier::prefixString
             );
     connect(ui->lineEdit_3,
             &QLineEdit::textChanged,
-            &AppendModifier::appendString
+            &AddModifier::suffixString
             );
     connect(ui->spinBox,
             &QSpinBox::valueChanged,
-            &PrependModifier::removeChars
+            &RemoveModifier::removeFrontChars
             );
     connect(ui->spinBox_2,
             &QSpinBox::valueChanged,
-            &AppendModifier::removeChars
+            &RemoveModifier::removeBackChars
+            );
+    connect(ui->lineEdit_4,
+            &QLineEdit::textChanged,
+            &ReplaceModifier::replaceString
+            );
+    connect(ui->lineEdit_5,
+            &QLineEdit::textChanged,
+            &ReplaceModifier::newString
             );
 }
 
@@ -47,13 +55,13 @@ void MainWindow::on_pushButton_clicked()
             );
 
 
-    //ui->treeView->setColumnWidth(0,this->width()*0.5);
-    //ui->treeView->setColumnWidth(4,this->width()*0.5);
+    ui->treeView->setColumnWidth(0,this->width()*0.3);
+    //ui->treeView->setColumnWidth(4,this->width()*0.4);
 
     //ui->treeView->hideColumn(1);
     //ui->treeView->hideColumn(2);
     //ui->treeView->hideColumn(3);
-
+    ui->treeView->hideColumn(5);
 
 }
 
@@ -83,7 +91,7 @@ void MainWindow::on_treeView_selectionChanged()
 }
 
 
-
+/* Rename - Button */
 void MainWindow::on_pushButton_2_clicked()
 {
     int renamed = 0;
@@ -93,61 +101,92 @@ void MainWindow::on_pushButton_2_clicked()
     msgBox.exec();
 }
 
+
+/* Add - CheckBox */
 void MainWindow::on_checkBox_stateChanged(int arg1)
 {
     if(arg1){
+        /* Prefix & Suffix LineEdits */
         ui->lineEdit_2->setEnabled(true);
-        ui->checkBox_3->setEnabled(true);
-        Renamer::modifiers |= Renamer::PREPEND;
+        ui->lineEdit_3->setEnabled(true);
+        Renamer::modifiers |= Renamer::ADD;
     }
     else if(arg1 == Qt::Unchecked){
         ui->lineEdit_2->setEnabled(false);
-        ui->checkBox_3->setEnabled(false);
-        Renamer::modifiers &= ~(Renamer::PREPEND);
+        ui->lineEdit_3->setEnabled(false);
+
+        Renamer::modifiers &= ~(Renamer::ADD);
     }
 
 }
 
+/* Remove - CheckBox */
 void MainWindow::on_checkBox_2_stateChanged(int arg1)
 {
     if(arg1){
-        ui->lineEdit_3->setEnabled(true);
+        /* rem. front & back n chars CheckBoxes/SpinBoxes */
+        ui->checkBox_3->setEnabled(true);
         ui->checkBox_4->setEnabled(true);
-        Renamer::modifiers |= Renamer::APPEND;
+        ui->spinBox->setEnabled(true);
+        ui->spinBox_2->setEnabled(true);
+        Renamer::modifiers |= Renamer::REMOVE;
     }
     else if(arg1 == Qt::Unchecked){
-        ui->lineEdit_3->setEnabled(false);
+        ui->checkBox_3->setEnabled(false);
         ui->checkBox_4->setEnabled(false);
-        Renamer::modifiers &= ~(Renamer::APPEND);
+        ui->spinBox->setEnabled(false);
+        ui->spinBox_2->setEnabled(false);
+        Renamer::modifiers &= ~(Renamer::REMOVE);
     }
 }
 
+/* Remove n chars front - CheckBox */
 void MainWindow::on_checkBox_3_stateChanged(int arg1)
 {
     if(arg1){
         ui->spinBox->setEnabled(true);
-        PrependModifier::remNumChars = ui->spinBox->value();
-        PrependModifier::options |= PrependModifier::REMOVE_CHARS;
+        RemoveModifier::frontNum = ui->spinBox->value();
+        RemoveModifier::options |= RemoveModifier::REMOVE_FRONT;
     }
     else if(arg1 == Qt::Unchecked){
         ui->spinBox->setEnabled(false);
-        PrependModifier::options &= ~(PrependModifier::REMOVE_CHARS);
+        RemoveModifier::options &= ~(RemoveModifier::REMOVE_FRONT);
     }
 
 }
 
-
+/* Remove n chars back - CheckBox */
 void MainWindow::on_checkBox_4_stateChanged(int arg1)
 {
     if(arg1){
         ui->spinBox_2->setEnabled(true);
-        AppendModifier::remNumChars = ui->spinBox->value();
-        AppendModifier::options |= AppendModifier::REMOVE_CHARS;
+        RemoveModifier::backNum = ui->spinBox->value();
+        RemoveModifier::options |= RemoveModifier::REMOVE_BACK;
     }
     else if(arg1 == Qt::Unchecked){
         ui->spinBox_2->setEnabled(false);
-        AppendModifier::options &= ~(AppendModifier::REMOVE_CHARS);
+        RemoveModifier::options &= ~(RemoveModifier::REMOVE_BACK);
     }
 }
 
+
+/* Replace - CheckBox */
+void MainWindow::on_checkBox_5_stateChanged(int arg1)
+{
+    if(arg1){
+        ui->lineEdit_4->setEnabled(true);
+        ui->lineEdit_5->setEnabled(true);
+        ReplaceModifier::replaceStr = ui->lineEdit_4->text();
+        ReplaceModifier::options |= ReplaceModifier::REPLACE_STRING;
+
+        Renamer::modifiers |= Renamer::REPLACE;
+    }
+    else if(arg1 == Qt::Unchecked){
+        ui->lineEdit_4->setEnabled(false);
+        ui->lineEdit_5->setEnabled(false);
+        ReplaceModifier::options &= ~(ReplaceModifier::REPLACE_STRING);
+
+        Renamer::modifiers &= ~(Renamer::REPLACE);
+    }
+}
 

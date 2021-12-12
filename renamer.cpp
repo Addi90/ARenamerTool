@@ -22,22 +22,43 @@ QString Renamer::rename(QString baseName)
 { 
     int count = 0;
 
-    if(modifiers & PREPEND){
+    if(modifiers & REPLACE){
+        baseName = ReplaceModifier::modify(baseName);
+    }
+    if(modifiers & ADD){
         baseName = PrependModifier::modify(baseName);
     }
-    if(modifiers & APPEND){
+    if(modifiers & ADD){
         baseName = AppendModifier::modify(baseName);
     }
 
     return baseName;
 }
 
+int Renamer::rename()
+{
+    int count = 0;
+    reset();
+    sortList();
+
+    if(modifiers & REMOVE){
+        RemoveModifier::modify(&files);
+    }
+    if(modifiers & ADD){
+        AddModifier::modify(&files);
+    }
+
+    return count;
+}
+
+
 
 int Renamer::save()
 {
     int count = 0;
+    rename();
+
     foreach(RenameFile* rFile,files){
-        rFile->newBaseName = rename(rFile->baseName);
         if(rFile->renameFile()){
             count++;
             qDebug() << "renamed to: " << rFile->getFile()->fileName();
@@ -50,15 +71,27 @@ int Renamer::save()
 
 QString Renamer::preview(const int row)
 {
+    rename();
     foreach(RenameFile* rFile,files){
         if(rFile->modIndex.row() == row){
-            //rFile->setNewName("NEW"+rFile->getCurrName());
-            QString previewName = rFile->baseName;
-            previewName = rename(previewName);
-            return previewName + rFile->fileEnding;
+            return rFile->newBaseName + rFile->fileEnding;
             break;
         };
     }
 
     return "";
+}
+
+int Renamer::reset()
+{
+    int count = 0;
+    foreach(RenameFile* rFile,files){
+        rFile->newBaseName = rFile->baseName;
+    }
+    return count;
+}
+
+void Renamer::sortList()
+{
+    std::sort(files.begin(),files.end());
 }

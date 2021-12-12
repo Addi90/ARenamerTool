@@ -34,6 +34,8 @@ public:
     void setFile(QFile *newFile);
 
     bool renameFile();
+
+    bool operator<(const RenameFile& other) const;
 };
 
 

@@ -10,7 +10,9 @@
 #include "renamefilemodel.h"
 #include "renamefile.h"
 #include "renamer.h"
-#include "prependmodifier.h"
+#include "addmodifier.h"
+#include "removemodifier.h"
+#include "replacemodifier.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -37,5 +39,6 @@ private slots:
 
     void on_checkBox_3_stateChanged(int arg1);
     void on_checkBox_4_stateChanged(int arg1);
+    void on_checkBox_5_stateChanged(int arg1);
 };
 #endif // MAINWINDOW_H

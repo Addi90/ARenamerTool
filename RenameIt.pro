@@ -8,23 +8,33 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    addmodifier.cpp \
     appendmodifier.cpp \
+    countmodifier.cpp \
     main.cpp \
     mainwindow.cpp \
     modifier.cpp \
+    numbermodifier.cpp \
     prependmodifier.cpp \
+    removemodifier.cpp \
     renamefile.cpp \
     renamefilemodel.cpp \
-    renamer.cpp
+    renamer.cpp \
+    replacemodifier.cpp
 
 HEADERS += \
+    addmodifier.h \
     appendmodifier.h \
+    countmodifier.h \
     mainwindow.h \
     modifier.h \
+    numbermodifier.h \
     prependmodifier.h \
+    removemodifier.h \
     renamefile.h \
     renamefilemodel.h \
-    renamer.h
+    renamer.h \
+    replacemodifier.h
 
 FORMS += \
     mainwindow.ui
