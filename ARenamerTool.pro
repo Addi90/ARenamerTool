@@ -9,13 +9,11 @@ CONFIG += c++11
 
 SOURCES += \
     addmodifier.cpp \
-    appendmodifier.cpp \
-    countmodifier.cpp \
+    ifthenmodifier.cpp \
     main.cpp \
     mainwindow.cpp \
     modifier.cpp \
     numbermodifier.cpp \
-    prependmodifier.cpp \
     removemodifier.cpp \
     renamefile.cpp \
     renamefilemodel.cpp \
@@ -24,12 +22,10 @@ SOURCES += \
 
 HEADERS += \
     addmodifier.h \
-    appendmodifier.h \
-    countmodifier.h \
+    ifthenmodifier.h \
     mainwindow.h \
     modifier.h \
     numbermodifier.h \
-    prependmodifier.h \
     removemodifier.h \
     renamefile.h \
     renamefilemodel.h \
@@ -40,7 +36,7 @@ FORMS += \
     mainwindow.ui
 
 TRANSLATIONS += \
-    RenameIt_de_DE.ts
+    ARenamerTool_de_DE.ts
 CONFIG += lrelease
 CONFIG += embed_translations
 

@@ -18,22 +18,6 @@ Renamer::Renamer()
 
 }
 
-QString Renamer::rename(QString baseName)
-{ 
-    int count = 0;
-
-    if(modifiers & REPLACE){
-        baseName = ReplaceModifier::modify(baseName);
-    }
-    if(modifiers & ADD){
-        baseName = PrependModifier::modify(baseName);
-    }
-    if(modifiers & ADD){
-        baseName = AppendModifier::modify(baseName);
-    }
-
-    return baseName;
-}
 
 int Renamer::rename()
 {
@@ -41,11 +25,17 @@ int Renamer::rename()
     reset();
     sortList();
 
+    if(modifiers & REPLACE){
+        ReplaceModifier::modify(&files);
+    }
     if(modifiers & REMOVE){
         RemoveModifier::modify(&files);
     }
     if(modifiers & ADD){
         AddModifier::modify(&files);
+    }
+    if(modifiers & COUNTING){
+        NumberModifier::modify(&files);
     }
 
     return count;

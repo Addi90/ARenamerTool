@@ -13,6 +13,7 @@
 #include "addmodifier.h"
 #include "removemodifier.h"
 #include "replacemodifier.h"
+#include "numbermodifier.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -40,5 +41,11 @@ private slots:
     void on_checkBox_3_stateChanged(int arg1);
     void on_checkBox_4_stateChanged(int arg1);
     void on_checkBox_5_stateChanged(int arg1);
+    void on_checkBox_7_stateChanged(int arg1);
+    void on_radioButton_clicked();
+    void on_radioButton_2_clicked();
+    void on_radioButton_3_clicked();
+    void on_spinBox_3_valueChanged(int arg1);
+    void on_spinBox_4_valueChanged(int arg1);
 };
 #endif // MAINWINDOW_H

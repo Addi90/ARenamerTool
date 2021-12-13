@@ -9,12 +9,10 @@
 
 #include "renamefile.h"
 #include "Modifier.h"
-#include "prependmodifier.h"
-#include "appendmodifier.h"
 #include "replacemodifier.h"
-#include "countmodifier.h"
 #include "addmodifier.h"
 #include "removemodifier.h"
+#include "numbermodifier.h"
 
 
 
@@ -27,7 +25,8 @@ public:
     enum Modifier{
             REPLACE = 0x1,
             REMOVE = 0x2,
-            ADD = 0x4
+            ADD = 0x4,
+            COUNTING = 0x8
         };
     Q_DECLARE_FLAGS(Modifiers, Modifier)
 

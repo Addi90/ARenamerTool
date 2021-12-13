@@ -19,6 +19,8 @@ public:
 
 
     static QString modify(QString currName);
+    static int modify(QList<RenameFile*>* renameFileList);
+
     ReplaceModifier();
 public slots:
     static void replaceString(const QString &replaceString); // Todo: Name it replaceExp

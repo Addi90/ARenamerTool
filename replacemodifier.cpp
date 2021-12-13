@@ -12,6 +12,17 @@ QString ReplaceModifier::modify(QString currName)
     return currName;
 }
 
+int ReplaceModifier::modify(QList<RenameFile *> *renameFileList)
+{
+    int i;
+    for(i=0;i< renameFileList->length();i++){
+        if(options & REPLACE_STRING){
+            (*renameFileList).at(i)->newBaseName.replace(replaceStr,newStr);
+        }
+    }
+    return i;
+}
+
 void ReplaceModifier::replaceString(const QString &replaceString)
 {
     replaceStr = replaceString;

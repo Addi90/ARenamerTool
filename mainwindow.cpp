@@ -23,6 +23,10 @@ MainWindow::MainWindow(QWidget *parent)
             &QSpinBox::valueChanged,
             &RemoveModifier::removeBackChars
             );
+    connect(ui->spinBox_3,
+            &QSpinBox::valueChanged,
+            &NumberModifier::startNumber
+            );
     connect(ui->lineEdit_4,
             &QLineEdit::textChanged,
             &ReplaceModifier::replaceString
@@ -127,8 +131,6 @@ void MainWindow::on_checkBox_2_stateChanged(int arg1)
         /* rem. front & back n chars CheckBoxes/SpinBoxes */
         ui->checkBox_3->setEnabled(true);
         ui->checkBox_4->setEnabled(true);
-        ui->spinBox->setEnabled(true);
-        ui->spinBox_2->setEnabled(true);
         Renamer::modifiers |= Renamer::REMOVE;
     }
     else if(arg1 == Qt::Unchecked){
@@ -188,5 +190,76 @@ void MainWindow::on_checkBox_5_stateChanged(int arg1)
 
         Renamer::modifiers &= ~(Renamer::REPLACE);
     }
+}
+
+/* Numbers - CheckBox*/
+void MainWindow::on_checkBox_7_stateChanged(int arg1)
+{
+    if(arg1){
+        ui->radioButton->setEnabled(true);
+        ui->radioButton_2->setEnabled(true);
+        ui->radioButton_3->setEnabled(true);
+        ui->spinBox_3->setEnabled(true);
+        NumberModifier::startNum = ui->spinBox_3->value();
+        NumberModifier::insertPos = ui->spinBox_4->value();
+        Renamer::modifiers |= Renamer::COUNTING;
+    }
+    else if(arg1 == Qt::Unchecked){
+        ui->radioButton->setEnabled(false);
+        ui->radioButton_2->setEnabled(false);
+        ui->radioButton_3->setEnabled(false);
+        ui->spinBox_3->setEnabled(false);
+        Renamer::modifiers &= ~(Renamer::COUNTING);
+    }
+}
+
+
+
+/* Numbers - Prefix RadioButton */
+void MainWindow::on_radioButton_clicked()
+{
+    if(ui->radioButton->isChecked()){
+        ui->radioButton_2->setChecked(false);
+        ui->radioButton_3->setChecked(false);
+        ui->spinBox_4->setEnabled(false);
+        NumberModifier::options |= NumberModifier::PREFIX;
+        NumberModifier::options &= ~(NumberModifier::SUFFIX | NumberModifier::INSERT);
+    }
+}
+
+/* Numbers - Insert RadioButton */
+void MainWindow::on_radioButton_2_clicked()
+{
+    if(ui->radioButton_2->isChecked()){
+        ui->radioButton->setChecked(false);
+        ui->radioButton_3->setChecked(false);
+        ui->spinBox_4->setEnabled(true);
+        NumberModifier::options |= NumberModifier::INSERT;
+        NumberModifier::options &= ~(NumberModifier::PREFIX | NumberModifier::SUFFIX);
+    }
+}
+
+/* Numbers - Suffix RadioButton */
+void MainWindow::on_radioButton_3_clicked()
+{
+    if(ui->radioButton_3->isChecked()){
+        ui->radioButton->setChecked(false);
+        ui->radioButton_2->setChecked(false);
+        ui->spinBox_4->setEnabled(false);
+        NumberModifier::options |= NumberModifier::SUFFIX;
+        NumberModifier::options &= ~(NumberModifier::PREFIX | NumberModifier::INSERT);
+    }
+}
+
+/* Numbers - Counter Startvalue SpinBox*/
+void MainWindow::on_spinBox_3_valueChanged(int arg1)
+{
+    NumberModifier::startNum = arg1;
+}
+
+/* Numbers - Counter insert Position SpinBox*/
+void MainWindow::on_spinBox_4_valueChanged(int arg1)
+{
+    NumberModifier::insertPos = arg1;
 }
 
