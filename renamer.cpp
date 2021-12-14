@@ -28,6 +28,9 @@ int Renamer::rename()
     if(modifiers & REPLACE){
         ReplaceModifier::modify(&files);
     }
+    if(modifiers & IF_THEN){
+        IfThenModifier::modify(&files);
+    }
     if(modifiers & REMOVE){
         RemoveModifier::modify(&files);
     }

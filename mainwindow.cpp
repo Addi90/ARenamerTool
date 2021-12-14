@@ -7,51 +7,24 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    connect(ui->lineEdit_2,
-            &QLineEdit::textChanged,
-            &AddModifier::prefixString
-            );
-    connect(ui->lineEdit_3,
-            &QLineEdit::textChanged,
-            &AddModifier::suffixString
-            );
-    connect(ui->spinBox,
-            &QSpinBox::valueChanged,
-            &RemoveModifier::removeFrontChars
-            );
-    connect(ui->spinBox_2,
-            &QSpinBox::valueChanged,
-            &RemoveModifier::removeBackChars
-            );
-    connect(ui->spinBox_3,
-            &QSpinBox::valueChanged,
-            &NumberModifier::startNumber
-            );
-    connect(ui->lineEdit_4,
-            &QLineEdit::textChanged,
-            &ReplaceModifier::replaceString
-            );
-    connect(ui->lineEdit_5,
-            &QLineEdit::textChanged,
-            &ReplaceModifier::newString
-            );
-}
 
-void MainWindow::on_pushButton_clicked()
-{
-    QFileDialog dialog(this);
-    dialog.setFileMode(QFileDialog::Directory);
-    QString dirName = dialog.getExistingDirectory();
 
-    ui->lineEdit->setText(dirName);
+    dirModel = new QFileSystemModel;
+    dirModel->setFilter(QDir::Dirs);
+    dirModel->setRootPath(QDir::homePath());
+    ui->treeView_2->setModel(dirModel);
+    ui->treeView_2->setColumnWidth(0,this->width());
+    ui->treeView_2->hideColumn(1);
+    ui->treeView_2->hideColumn(2);
+    ui->treeView_2->hideColumn(3);
 
-    RenameFileModel *fileModel = new RenameFileModel;
 
+    fileModel = new RenameFileModel;
     fileModel->setFilter(QDir::Files);
     //ui->treeView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->treeView->setModel(fileModel);
-    ui->treeView->setRootIndex(fileModel->setRootPath(dirName));
-    ui->treeView->show();
+    ui->treeView->setRootIndex(fileModel->setRootPath(QDir::homePath()));
+    //ui->treeView->show();
     connect(ui->treeView->selectionModel(),
             SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
             this,
@@ -67,12 +40,104 @@ void MainWindow::on_pushButton_clicked()
     //ui->treeView->hideColumn(3);
     ui->treeView->hideColumn(5);
 
+    /* ADD */
+    connect(ui->lineEdit_2,
+            &QLineEdit::textChanged,
+            &AddModifier::prefixString
+            );
+    connect(ui->lineEdit_3,
+            &QLineEdit::textChanged,
+            &AddModifier::suffixString
+            );
+    /* REMOVE */
+    connect(ui->spinBox,
+            &QSpinBox::valueChanged,
+            &RemoveModifier::removeFrontChars
+            );
+    connect(ui->spinBox_2,
+            &QSpinBox::valueChanged,
+            &RemoveModifier::removeBackChars
+            );
+    /* NUMBERS */
+    connect(ui->spinBox_3,
+            &QSpinBox::valueChanged,
+            &NumberModifier::startNumber
+            );
+    /* REPLACE */
+    connect(ui->lineEdit_4,
+            &QLineEdit::textChanged,
+            &ReplaceModifier::replaceString
+            );
+    connect(ui->lineEdit_5,
+            &QLineEdit::textChanged,
+            &ReplaceModifier::newString
+            );
+    /* IF-THEN */
+    connect(ui->lineEdit_6,
+            &QLineEdit::textChanged,
+            &IfThenModifier::conditionString
+            );
+    connect(ui->lineEdit_7,
+            &QLineEdit::textChanged,
+            &IfThenModifier::consequenceString
+            );
+    connect(ui->spinBox_4,
+            &QSpinBox::valueChanged,
+            &IfThenModifier::insertPosition
+            );
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    QFileDialog dialog(this);
+    dialog.setFileMode(QFileDialog::Directory);
+    QString dirName = dialog.getExistingDirectory();
+
+    ui->lineEdit->setText(dirName);
+
+    //ui->treeView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->treeView->setRootIndex(fileModel->setRootPath(dirName));
+    ui->treeView->show();
+    connect(ui->treeView->selectionModel(),
+            SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
+            this,
+            SLOT(on_treeView_selectionChanged())
+            );
+
 }
 
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::ifThenOptionResolver(int condition, int consequence)
+{
+    switch(condition){
+        case 0:
+            IfThenModifier::options &= ~(IfThenModifier::CONTAINS_NOT);
+            IfThenModifier::options |= IfThenModifier::CONTAINS;
+            break;
+        case 1:
+            IfThenModifier::options &= ~(IfThenModifier::CONTAINS);
+            IfThenModifier::options |= IfThenModifier::CONTAINS_NOT;
+            break;
+    }
+    switch(consequence){
+        case 0:
+            IfThenModifier::options &= ~(IfThenModifier::INSERT | IfThenModifier::ADD_SUFFIX);
+            IfThenModifier::options |= IfThenModifier::ADD_PREFIX;
+            break;
+        case 1:
+            IfThenModifier::options &= ~(IfThenModifier::ADD_PREFIX | IfThenModifier::ADD_SUFFIX);
+            IfThenModifier::options |= IfThenModifier::INSERT;
+            break;
+        case 2:
+            IfThenModifier::options &= ~(IfThenModifier::ADD_PREFIX | IfThenModifier::INSERT);
+            IfThenModifier::options |= IfThenModifier::ADD_SUFFIX;
+            break;
+    }
 }
 
 
@@ -113,12 +178,15 @@ void MainWindow::on_checkBox_stateChanged(int arg1)
         /* Prefix & Suffix LineEdits */
         ui->lineEdit_2->setEnabled(true);
         ui->lineEdit_3->setEnabled(true);
+        ui->lineEdit_8->setEnabled(true);
+        ui->spinBox_6->setEnabled(true);
         Renamer::modifiers |= Renamer::ADD;
     }
     else if(arg1 == Qt::Unchecked){
         ui->lineEdit_2->setEnabled(false);
         ui->lineEdit_3->setEnabled(false);
-
+        ui->lineEdit_8->setEnabled(false);
+        ui->spinBox_6->setEnabled(false);
         Renamer::modifiers &= ~(Renamer::ADD);
     }
 
@@ -261,5 +329,49 @@ void MainWindow::on_spinBox_3_valueChanged(int arg1)
 void MainWindow::on_spinBox_4_valueChanged(int arg1)
 {
     NumberModifier::insertPos = arg1;
+}
+
+/* If-Then - activate CheckBox */
+void MainWindow::on_checkBox_6_stateChanged(int arg1)
+{
+    if(arg1){
+        ui->comboBox->setEnabled(true);
+        ui->comboBox_2->setEnabled(true);
+        ui->lineEdit_7->setEnabled(true);
+        ui->lineEdit_6->setEnabled(true);
+        ifThenOptionResolver(ui->comboBox->currentIndex(),ui->comboBox_2->currentIndex());
+        Renamer::modifiers |= Renamer::IF_THEN;
+    }
+    else if(arg1 == Qt::Unchecked){
+        ui->comboBox->setEnabled(false);
+        ui->comboBox_2->setEnabled(false);
+        ui->lineEdit_7->setEnabled(false);
+        ui->lineEdit_6->setEnabled(false);
+        ui->spinBox_5->setEnabled(false);
+        Renamer::modifiers &= ~(Renamer::IF_THEN);
+    }
+}
+
+/* If-Then - select Condition ComboBox */
+void MainWindow::on_comboBox_currentIndexChanged(int index)
+{
+    ifThenOptionResolver(index,ui->comboBox_2->currentIndex());
+}
+
+/* If-Then - select Consequence ComboBox */
+void MainWindow::on_comboBox_2_currentIndexChanged(int index)
+{
+    ifThenOptionResolver(ui->comboBox->currentIndex(),index);
+    if(index == 1)
+        ui->spinBox_5->setEnabled(true);
+    else
+        ui->spinBox_5->setEnabled(false);
+}
+
+
+void MainWindow::on_treeView_2_clicked(const QModelIndex &index)
+{
+    QString path = dirModel->filePath(index);
+    ui->treeView->setRootIndex(fileModel->setRootPath(path));
 }
 

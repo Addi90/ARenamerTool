@@ -7,10 +7,6 @@ class AddModifier : public Modifier
 {
 
 public:
-    enum Option{
-            INSERT = 0x4
-        };
-    Q_DECLARE_FLAGS(Options, Option)
 
     static QString prefixStr;
     static QString suffixStr;

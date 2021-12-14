@@ -18,6 +18,7 @@ public:
     int modify(QList<RenameFile*>* renameFileList);
 
 private:
+
 };
 
 

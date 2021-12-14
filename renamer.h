@@ -13,7 +13,7 @@
 #include "addmodifier.h"
 #include "removemodifier.h"
 #include "numbermodifier.h"
-
+#include "ifthenmodifier.h"
 
 
 class Renamer
@@ -26,7 +26,8 @@ public:
             REPLACE = 0x1,
             REMOVE = 0x2,
             ADD = 0x4,
-            COUNTING = 0x8
+            COUNTING = 0x8,
+            IF_THEN = 0x10
         };
     Q_DECLARE_FLAGS(Modifiers, Modifier)
 

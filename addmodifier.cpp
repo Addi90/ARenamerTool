@@ -12,8 +12,9 @@ int AddModifier::modify(QList<RenameFile *> *renameFileList)
     int i;
 
     for(i=0;i< renameFileList->length();i++){
-        if(options & INSERT){
-
+        if(insertStr != ""){
+            (*renameFileList).at(i)->newBaseName =
+                    (*renameFileList).at(i)->newBaseName.insert(insertPos,insertStr);
         }
         (*renameFileList).at(i)->newBaseName = prefixStr +
                 (*renameFileList).at(i)->newBaseName +
