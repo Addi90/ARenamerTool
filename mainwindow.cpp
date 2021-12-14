@@ -11,8 +11,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     dirModel = new QFileSystemModel;
     dirModel->setFilter(QDir::Dirs);
-    dirModel->setRootPath(QDir::homePath());
+    QModelIndex homeIndex = dirModel->setRootPath(QDir::homePath());
     ui->treeView_2->setModel(dirModel);
+    ui->treeView_2->scrollTo(homeIndex);
     ui->treeView_2->setColumnWidth(0,this->width());
     ui->treeView_2->hideColumn(1);
     ui->treeView_2->hideColumn(2);
@@ -24,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
     //ui->treeView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->treeView->setModel(fileModel);
     ui->treeView->setRootIndex(fileModel->setRootPath(QDir::homePath()));
+    //ui->treeView->setSortingEnabled(true);
     //ui->treeView->show();
     connect(ui->treeView->selectionModel(),
             SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
@@ -35,9 +37,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->treeView->setColumnWidth(0,this->width()*0.3);
     //ui->treeView->setColumnWidth(4,this->width()*0.4);
 
-    //ui->treeView->hideColumn(1);
-    //ui->treeView->hideColumn(2);
-    //ui->treeView->hideColumn(3);
+    ui->treeView->hideColumn(1);
+    ui->treeView->hideColumn(2);
+    ui->treeView->hideColumn(3);
     ui->treeView->hideColumn(5);
 
     /* ADD */
@@ -62,6 +64,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->spinBox_3,
             &QSpinBox::valueChanged,
             &NumberModifier::startNumber
+            );
+    connect(ui->spinBox_7,
+            &QSpinBox::valueChanged,
+            &NumberModifier::paddingSize
             );
     /* REPLACE */
     connect(ui->lineEdit_4,
@@ -268,6 +274,7 @@ void MainWindow::on_checkBox_7_stateChanged(int arg1)
         ui->radioButton_2->setEnabled(true);
         ui->radioButton_3->setEnabled(true);
         ui->spinBox_3->setEnabled(true);
+        ui->spinBox_7->setEnabled(true);
         NumberModifier::startNum = ui->spinBox_3->value();
         NumberModifier::insertPos = ui->spinBox_4->value();
         Renamer::modifiers |= Renamer::COUNTING;
@@ -277,6 +284,7 @@ void MainWindow::on_checkBox_7_stateChanged(int arg1)
         ui->radioButton_2->setEnabled(false);
         ui->radioButton_3->setEnabled(false);
         ui->spinBox_3->setEnabled(false);
+        ui->spinBox_7->setEnabled(true);
         Renamer::modifiers &= ~(Renamer::COUNTING);
     }
 }
@@ -331,6 +339,7 @@ void MainWindow::on_spinBox_4_valueChanged(int arg1)
     NumberModifier::insertPos = arg1;
 }
 
+
 /* If-Then - activate CheckBox */
 void MainWindow::on_checkBox_6_stateChanged(int arg1)
 {
@@ -373,5 +382,31 @@ void MainWindow::on_treeView_2_clicked(const QModelIndex &index)
 {
     QString path = dirModel->filePath(index);
     ui->treeView->setRootIndex(fileModel->setRootPath(path));
+}
+
+
+
+
+void MainWindow::on_checkBox_8_stateChanged(int arg1)
+{
+    if(arg1){
+        ui->checkBox_9->setEnabled(false);
+        ReplaceModifier::options |= ReplaceModifier::REPLACE_REGEX;
+    }
+    else if(arg1 == Qt::Unchecked){
+        ui->checkBox_9->setEnabled(true);
+        ReplaceModifier::options &= ~(ReplaceModifier::REPLACE_REGEX);
+    }
+}
+
+
+void MainWindow::on_checkBox_9_stateChanged(int arg1)
+{
+    if(arg1){
+        ReplaceModifier::options |= ReplaceModifier::CASE_SENSITIVE;
+    }
+    else if(arg1 == Qt::Unchecked){
+        ReplaceModifier::options &= ~(ReplaceModifier::CASE_SENSITIVE);
+    }
 }
 

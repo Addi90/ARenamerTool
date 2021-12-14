@@ -44,8 +44,6 @@ int Renamer::rename()
     return count;
 }
 
-
-
 int Renamer::save()
 {
     int count = 0;
@@ -59,8 +57,6 @@ int Renamer::save()
     }
     return count;
 }
-
-
 
 QString Renamer::preview(const int row)
 {

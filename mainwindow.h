@@ -54,5 +54,7 @@ private slots:
     void on_comboBox_currentIndexChanged(int index);
     void on_comboBox_2_currentIndexChanged(int index);
     void on_treeView_2_clicked(const QModelIndex &index);
+    void on_checkBox_8_stateChanged(int arg1);
+    void on_checkBox_9_stateChanged(int arg1);
 };
 #endif // MAINWINDOW_H

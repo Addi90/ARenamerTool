@@ -15,6 +15,7 @@ public:
 
     static QString appendStr;
     static unsigned int insertPos;
+    static unsigned int padding;
     static unsigned int startNum;
     static unsigned int options;
 
@@ -23,6 +24,7 @@ public:
     NumberModifier();
 
 public slots:
+    static void paddingSize(const int &num);
     static void startNumber(const int &num);
     static void insertPosition(const int &pos);
 

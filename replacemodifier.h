@@ -9,7 +9,8 @@ class ReplaceModifier : public Modifier
 public:
     enum Option{
             REPLACE_STRING = 0x1,
-            REPLACE_REGEX = 0x2
+            REPLACE_REGEX = 0x2,
+            CASE_SENSITIVE = 0x4
         };
     Q_DECLARE_FLAGS(Options, Option)
 
