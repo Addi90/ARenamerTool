@@ -26,16 +26,6 @@
       <property name="topMargin">
        <number>1</number>
       </property>
-      <item row="1" column="1">
-       <widget class="QTreeView" name="treeView">
-        <property name="selectionMode">
-         <enum>QAbstractItemView::MultiSelection</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QTreeView" name="treeView_2"/>
-      </item>
       <item row="0" column="0">
        <widget class="QLabel" name="label_13">
         <property name="text">
@@ -47,6 +37,16 @@
        <widget class="QLabel" name="label_14">
         <property name="text">
          <string>Files</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QTreeView" name="treeView_2"/>
+      </item>
+      <item row="1" column="1">
+       <widget class="QTreeView" name="treeView">
+        <property name="selectionMode">
+         <enum>QAbstractItemView::MultiSelection</enum>
         </property>
        </widget>
       </item>
@@ -204,7 +204,10 @@
             <property name="rightMargin">
              <number>0</number>
             </property>
-            <item row="2" column="0">
+            <item row="5" column="2">
+             <layout class="QHBoxLayout" name="horizontalLayout_8"/>
+            </item>
+            <item row="5" column="0">
              <widget class="QLabel" name="label_9">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -217,7 +220,7 @@
               </property>
              </widget>
             </item>
-            <item row="2" column="1">
+            <item row="5" column="1">
              <widget class="QSpinBox" name="spinBox_5">
               <property name="enabled">
                <bool>false</bool>
@@ -266,7 +269,7 @@
               </item>
              </widget>
             </item>
-            <item row="1" column="1">
+            <item row="4" column="1">
              <widget class="QComboBox" name="comboBox_2">
               <property name="enabled">
                <bool>false</bool>
@@ -294,7 +297,7 @@
               </item>
              </widget>
             </item>
-            <item row="1" column="2">
+            <item row="4" column="2">
              <widget class="QLineEdit" name="lineEdit_7">
               <property name="enabled">
                <bool>false</bool>
@@ -307,10 +310,20 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="0">
+            <item row="4" column="0">
              <widget class="QLabel" name="label_8">
               <property name="text">
                <string>THEN</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QCheckBox" name="checkBox_10">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>case-sensitive</string>
               </property>
              </widget>
             </item>
@@ -318,6 +331,16 @@
              <widget class="QLabel" name="label_6">
               <property name="text">
                <string>IF</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QCheckBox" name="checkBox_11">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>RegEx</string>
               </property>
              </widget>
             </item>
@@ -354,7 +377,7 @@
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
            <layout class="QGridLayout" name="gridLayout_4">
-            <item row="2" column="0">
+            <item row="5" column="0">
              <widget class="QLabel" name="label_4">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -364,6 +387,16 @@
               </property>
               <property name="text">
                <string>with:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QCheckBox" name="checkBox_9">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>case-sensitive</string>
               </property>
              </widget>
             </item>
@@ -393,7 +426,7 @@
               </property>
              </widget>
             </item>
-            <item row="2" column="1">
+            <item row="5" column="1">
              <widget class="QLineEdit" name="lineEdit_5">
               <property name="enabled">
                <bool>false</bool>
@@ -406,23 +439,15 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
-             <layout class="QHBoxLayout" name="horizontalLayout_4">
-              <item>
-               <widget class="QCheckBox" name="checkBox_8">
-                <property name="text">
-                 <string>RegEx</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QCheckBox" name="checkBox_9">
-                <property name="text">
-                 <string>case-sensitive</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
+            <item row="1" column="0">
+             <widget class="QCheckBox" name="checkBox_8">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>RegEx</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>

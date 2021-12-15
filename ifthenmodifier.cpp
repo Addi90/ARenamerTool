@@ -4,18 +4,51 @@ QString IfThenModifier::conditionStr;
 QString IfThenModifier::consequenceStr;
 unsigned int IfThenModifier::insertPos;
 unsigned int IfThenModifier::options;
+QRegularExpression IfThenModifier::conditionRegex;
 
 int IfThenModifier::modify(QList<RenameFile *> *renameFileList)
 {
-    int ret = 0;
     /* handle condition */
-    if((options & CONTAINS) && conditionStr != ""){
-       ret = handleConsequence(renameFileList);
+    int i;
+    for(i=0;i< renameFileList->length();i++){
+
+        if((options & CONTAINS) && conditionStr != ""){
+            if(options & CASE_SENSITIVE){
+                if((options & REGEX) && conditionRegex.match((*renameFileList).at(i)->baseName).hasMatch()){
+                    handleConsequence(renameFileList->at(i));
+                }
+                else if((*renameFileList).at(i)->baseName.contains(conditionStr,Qt::CaseSensitive)){
+                    handleConsequence(renameFileList->at(i));
+                }
+            }
+            else if((options & REGEX) && conditionRegex.match((*renameFileList).at(i)->baseName,QRegularExpression::CaseInsensitiveOption).hasMatch()){
+                handleConsequence(renameFileList->at(i));
+            }
+            else if((*renameFileList).at(i)->baseName.contains(conditionStr,Qt::CaseInsensitive)){
+                handleConsequence(renameFileList->at(i));
+            }
+        }
+        else if((options & CONTAINS_NOT) && conditionStr != ""){
+            if(options & CASE_SENSITIVE){
+                if((options & REGEX) && !conditionRegex.match((*renameFileList).at(i)->baseName).hasMatch()){
+                    handleConsequence(renameFileList->at(i));
+                }
+                else if(!(*renameFileList).at(i)->baseName.contains(conditionStr,Qt::CaseSensitive)){
+                    handleConsequence(renameFileList->at(i));
+                }
+            }
+            else if((options & REGEX) && !conditionRegex.match((*renameFileList).at(i)->baseName,QRegularExpression::CaseInsensitiveOption).hasMatch()){
+                handleConsequence(renameFileList->at(i));
+            }
+            else if(!(*renameFileList).at(i)->baseName.contains(conditionStr,Qt::CaseInsensitive)){
+                handleConsequence(renameFileList->at(i));
+            }
+        }
     }
-    else if((options & CONTAINS_NOT) && conditionStr != ""){
-       ret = handleConsequence(renameFileList);
-    }
-    return ret;
+
+
+
+    return i;
 }
 
 IfThenModifier::IfThenModifier()
@@ -23,10 +56,14 @@ IfThenModifier::IfThenModifier()
     
 }
 
-void IfThenModifier::conditionString(const QString &str)
+void IfThenModifier::conditionExp(const QString &str)
 {
-    conditionStr = str;
-    qDebug() << "consequenceStr: " << consequenceStr;
+    if(options & REGEX){
+        conditionRegex.setPattern(str);
+    }
+    else
+        conditionStr = str;
+    qDebug() << "conditionStr: " << conditionStr;
 }
 
 void IfThenModifier::consequenceString(const QString &str)
@@ -41,23 +78,38 @@ void IfThenModifier::insertPosition(const int &pos)
     qDebug() << "consequence insert pos: " << insertPos;
 }
 
-int IfThenModifier::handleConsequence(QList<RenameFile *> *renameFileList)
+void IfThenModifier::setRegexOption(const int &status)
+{
+    if(status == 1){
+        options |= REGEX;
+    }else
+        options &= ~(REGEX);
+}
+
+void IfThenModifier::setCaseSensitiveOption(const int &status)
+{
+    if(status == 1){
+        options |= CASE_SENSITIVE;
+    }else
+        options &= ~(CASE_SENSITIVE);
+}
+
+int IfThenModifier::handleConsequence(RenameFile *renameFile)
 {
     int i;
 
-    for(i=0;i< renameFileList->length();i++){
-        if(options & INSERT){
-            (*renameFileList).at(i)->newBaseName =
-                    (*renameFileList).at(i)->newBaseName.insert(insertPos,consequenceStr);
+        if(options & INSERT){     
+            renameFile->newBaseName =
+                    renameFile->newBaseName.insert(insertPos,consequenceStr);
         }
         if(options & ADD_PREFIX){
-            (*renameFileList).at(i)->newBaseName =
-                    (*renameFileList).at(i)->newBaseName.prepend(consequenceStr);
+            renameFile->newBaseName =
+                    renameFile->newBaseName.prepend(consequenceStr);
         }
         if(options & ADD_SUFFIX){
-            (*renameFileList).at(i)->newBaseName =
-                    (*renameFileList).at(i)->newBaseName.append(consequenceStr);
+            renameFile->newBaseName =
+                    renameFile->newBaseName.append(consequenceStr);
         }
-    }
-    return i;
+
+    return 0;
 }

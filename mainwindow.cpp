@@ -27,16 +27,15 @@ MainWindow::MainWindow(QWidget *parent)
     ui->treeView->setRootIndex(fileModel->setRootPath(QDir::homePath()));
     //ui->treeView->setSortingEnabled(true);
     //ui->treeView->show();
+
     connect(ui->treeView->selectionModel(),
             SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
             this,
             SLOT(on_treeView_selectionChanged())
             );
 
-
     ui->treeView->setColumnWidth(0,this->width()*0.3);
     //ui->treeView->setColumnWidth(4,this->width()*0.4);
-
     ui->treeView->hideColumn(1);
     ui->treeView->hideColumn(2);
     ui->treeView->hideColumn(3);
@@ -65,6 +64,10 @@ MainWindow::MainWindow(QWidget *parent)
             &QSpinBox::valueChanged,
             &NumberModifier::startNumber
             );
+    connect(ui->spinBox_4,
+            &QSpinBox::valueChanged,
+            &NumberModifier::insertPosition
+            );
     connect(ui->spinBox_7,
             &QSpinBox::valueChanged,
             &NumberModifier::paddingSize
@@ -78,18 +81,34 @@ MainWindow::MainWindow(QWidget *parent)
             &QLineEdit::textChanged,
             &ReplaceModifier::newString
             );
+    connect(ui->checkBox_8,
+            &QCheckBox::stateChanged,
+            &ReplaceModifier::setRegexOption
+            );
+    connect(ui->checkBox_9,
+            &QCheckBox::stateChanged,
+            &ReplaceModifier::setCaseSensitiveOption
+            );
     /* IF-THEN */
     connect(ui->lineEdit_6,
             &QLineEdit::textChanged,
-            &IfThenModifier::conditionString
+            &IfThenModifier::conditionExp
             );
     connect(ui->lineEdit_7,
             &QLineEdit::textChanged,
             &IfThenModifier::consequenceString
             );
-    connect(ui->spinBox_4,
+    connect(ui->spinBox_5,
             &QSpinBox::valueChanged,
             &IfThenModifier::insertPosition
+            );
+    connect(ui->checkBox_10,
+            &QCheckBox::stateChanged,
+            &IfThenModifier::setRegexOption
+            );
+    connect(ui->checkBox_11,
+            &QCheckBox::stateChanged,
+            &IfThenModifier::setCaseSensitiveOption
             );
 }
 
@@ -146,7 +165,7 @@ void MainWindow::ifThenOptionResolver(int condition, int consequence)
     }
 }
 
-
+/* Open - Button */
 void MainWindow::on_treeView_selectionChanged()
 {
     QModelIndexList selectionList = ui->treeView->selectionModel()->selectedRows();
@@ -162,7 +181,6 @@ void MainWindow::on_treeView_selectionChanged()
         rFiles.append(rFile);
     };
     Renamer::setFiles(rFiles);
-
 }
 
 
@@ -252,16 +270,16 @@ void MainWindow::on_checkBox_5_stateChanged(int arg1)
     if(arg1){
         ui->lineEdit_4->setEnabled(true);
         ui->lineEdit_5->setEnabled(true);
+        ui->checkBox_8->setEnabled(true);
+        ui->checkBox_9->setEnabled(true);
         ReplaceModifier::replaceStr = ui->lineEdit_4->text();
-        ReplaceModifier::options |= ReplaceModifier::REPLACE_STRING;
-
         Renamer::modifiers |= Renamer::REPLACE;
     }
     else if(arg1 == Qt::Unchecked){
         ui->lineEdit_4->setEnabled(false);
         ui->lineEdit_5->setEnabled(false);
-        ReplaceModifier::options &= ~(ReplaceModifier::REPLACE_STRING);
-
+        ui->checkBox_8->setEnabled(false);
+        ui->checkBox_9->setEnabled(false);
         Renamer::modifiers &= ~(Renamer::REPLACE);
     }
 }
@@ -327,18 +345,6 @@ void MainWindow::on_radioButton_3_clicked()
     }
 }
 
-/* Numbers - Counter Startvalue SpinBox*/
-void MainWindow::on_spinBox_3_valueChanged(int arg1)
-{
-    NumberModifier::startNum = arg1;
-}
-
-/* Numbers - Counter insert Position SpinBox*/
-void MainWindow::on_spinBox_4_valueChanged(int arg1)
-{
-    NumberModifier::insertPos = arg1;
-}
-
 
 /* If-Then - activate CheckBox */
 void MainWindow::on_checkBox_6_stateChanged(int arg1)
@@ -348,6 +354,8 @@ void MainWindow::on_checkBox_6_stateChanged(int arg1)
         ui->comboBox_2->setEnabled(true);
         ui->lineEdit_7->setEnabled(true);
         ui->lineEdit_6->setEnabled(true);
+        ui->checkBox_10->setEnabled(true);
+        ui->checkBox_11->setEnabled(true);
         ifThenOptionResolver(ui->comboBox->currentIndex(),ui->comboBox_2->currentIndex());
         Renamer::modifiers |= Renamer::IF_THEN;
     }
@@ -357,6 +365,8 @@ void MainWindow::on_checkBox_6_stateChanged(int arg1)
         ui->lineEdit_7->setEnabled(false);
         ui->lineEdit_6->setEnabled(false);
         ui->spinBox_5->setEnabled(false);
+        ui->checkBox_10->setEnabled(false);
+        ui->checkBox_11->setEnabled(false);
         Renamer::modifiers &= ~(Renamer::IF_THEN);
     }
 }
@@ -386,27 +396,21 @@ void MainWindow::on_treeView_2_clicked(const QModelIndex &index)
 
 
 
-
 void MainWindow::on_checkBox_8_stateChanged(int arg1)
 {
-    if(arg1){
-        ui->checkBox_9->setEnabled(false);
-        ReplaceModifier::options |= ReplaceModifier::REPLACE_REGEX;
-    }
-    else if(arg1 == Qt::Unchecked){
-        ui->checkBox_9->setEnabled(true);
-        ReplaceModifier::options &= ~(ReplaceModifier::REPLACE_REGEX);
-    }
+    if(arg1 == Qt::Unchecked){
+        ui->checkBox_9->setChecked(false);
+    } else
+        ui->checkBox_9->setChecked(true);
 }
 
 
-void MainWindow::on_checkBox_9_stateChanged(int arg1)
+void MainWindow::on_checkBox_11_stateChanged(int arg1)
 {
-    if(arg1){
-        ReplaceModifier::options |= ReplaceModifier::CASE_SENSITIVE;
-    }
-    else if(arg1 == Qt::Unchecked){
-        ReplaceModifier::options &= ~(ReplaceModifier::CASE_SENSITIVE);
-    }
+    if(arg1 == Qt::Unchecked){
+        ui->checkBox_10->setChecked(false);
+    } else
+        ui->checkBox_10->setChecked(true);
 }
+
 
