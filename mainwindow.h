@@ -62,5 +62,6 @@ private slots:
     void on_radioButton_5_clicked();
     void on_radioButton_6_clicked();
     void on_checkBox_12_stateChanged(int arg1);
+    void on_checkBox_13_stateChanged(int arg1);
 };
 #endif // MAINWINDOW_H

@@ -500,6 +500,12 @@
                 <property name="enabled">
                  <bool>false</bool>
                 </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>999</number>
+                </property>
                </widget>
               </item>
               <item>
@@ -513,6 +519,12 @@
                <widget class="QSpinBox" name="spinBox_9">
                 <property name="enabled">
                  <bool>false</bool>
+                </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>999</number>
                 </property>
                </widget>
               </item>

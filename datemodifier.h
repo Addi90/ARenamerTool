@@ -2,6 +2,7 @@
 #define DATEMODIFIER_H
 
 #include "modifier.h"
+#include <QMutex>
 
 class DateModifier : public Modifier
 {

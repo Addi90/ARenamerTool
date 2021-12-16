@@ -12,15 +12,15 @@ int DateModifier::modify(QList<RenameFile *> *renameFileList)
 {
     int i;
     for(i=0;i< renameFileList->length();i++){
-
+        makeDate((*renameFileList).at(i));
         if(options & SUFFIX){
-            (*renameFileList).at(i)->newBaseName.append(makeDate((*renameFileList).at(i)));
+            (*renameFileList).at(i)->newBaseName.append(dateStr);
         }
         else if(options & INSERT){
-            (*renameFileList).at(i)->newBaseName.insert(insertPos,makeDate((*renameFileList).at(i)));
+            (*renameFileList).at(i)->newBaseName.insert(insertPos,dateStr);
         }
         else if(options & PREFIX){
-            (*renameFileList).at(i)->newBaseName.prepend(makeDate((*renameFileList).at(i)));
+            (*renameFileList).at(i)->newBaseName.prepend(dateStr);
         }
     }
 
@@ -63,9 +63,8 @@ QString DateModifier::makeDate(RenameFile *renameFile)
         dateFormat = "MM" + sepStr + "dd" + sepStr + "yyyy";
     }
 
-    dateStr = fTime.date().toString(dateFormat);
-
-    qDebug() << "makeDate: " << dateStr;
+    QDate date = fTime.date();
+    dateStr = date.toString(dateFormat);
     return dateStr;
 }
 

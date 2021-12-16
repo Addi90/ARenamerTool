@@ -59,6 +59,14 @@ MainWindow::MainWindow(QWidget *parent)
             &QSpinBox::valueChanged,
             &RemoveModifier::removeBackChars
             );
+    connect(ui->spinBox_8,
+            &QSpinBox::valueChanged,
+            &RemoveModifier::removeRangeStart
+            );
+    connect(ui->spinBox_9,
+            &QSpinBox::valueChanged,
+            &RemoveModifier::removeRangeEnd
+            );
     /* NUMBERS */
     connect(ui->spinBox_3,
             &QSpinBox::valueChanged,
@@ -285,6 +293,21 @@ void MainWindow::on_checkBox_4_stateChanged(int arg1)
     }
 }
 
+/* Remove range - CheckBox */
+void MainWindow::on_checkBox_13_stateChanged(int arg1)
+{
+    if(arg1 == Qt::Unchecked){
+        ui->spinBox_8->setEnabled(false);
+        ui->spinBox_9->setEnabled(false);
+        RemoveModifier::options &= ~(RemoveModifier::REMOVE_RANGE);
+    }
+    else {
+        ui->spinBox_8->setEnabled(true);
+        ui->spinBox_9->setEnabled(true);
+        RemoveModifier::options |= RemoveModifier::REMOVE_RANGE;
+    }
+}
+
 
 /* Replace - CheckBox */
 void MainWindow::on_checkBox_5_stateChanged(int arg1)
@@ -445,6 +468,7 @@ void MainWindow::on_checkBox_12_stateChanged(int arg1)
         DateModifier::options |= DateModifier::SUFFIX;
 
         on_comboBox_3_currentIndexChanged(ui->comboBox_3->currentIndex());
+        on_comboBox_4_currentIndexChanged(ui->comboBox_4->currentIndex());
 
         ui->lineEdit_9->setText("-");
 
@@ -490,19 +514,19 @@ void MainWindow::on_comboBox_4_currentIndexChanged(int index)
     DateModifier::options &= ~(0xF);
     switch(index){
     case 0:
-        DateModifier::options |= ~(DateModifier::DATE_MADE);
+        DateModifier::options |= DateModifier::DATE_MADE;
         ui->dateEdit->setEnabled(false);
         break;
     case 1:
-        DateModifier::options |= ~(DateModifier::DATE_MOD);
+        DateModifier::options |= DateModifier::DATE_MOD;
         ui->dateEdit->setEnabled(false);
         break;
     case 2:
-        DateModifier::options |= ~(DateModifier::DATE_TODAY);
+        DateModifier::options |= DateModifier::DATE_TODAY;
         ui->dateEdit->setEnabled(false);
         break;
     case 3:
-        DateModifier::options |= ~(DateModifier::DATE_CUSTOM);
+        DateModifier::options |= DateModifier::DATE_CUSTOM;
         ui->dateEdit->setEnabled(true);
         break;
     }
@@ -543,6 +567,8 @@ void MainWindow::on_radioButton_6_clicked()
         DateModifier::options &= ~(DateModifier::SUFFIX | DateModifier::PREFIX);
     }
 }
+
+
 
 
 
