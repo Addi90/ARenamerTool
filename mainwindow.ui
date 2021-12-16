@@ -28,6 +28,9 @@
       </property>
       <item row="0" column="0">
        <widget class="QLabel" name="label_13">
+        <property name="locale">
+         <locale language="English" country="UnitedKingdom"/>
+        </property>
         <property name="text">
          <string>Directories</string>
         </property>
@@ -35,16 +38,26 @@
       </item>
       <item row="0" column="1">
        <widget class="QLabel" name="label_14">
+        <property name="locale">
+         <locale language="English" country="UnitedKingdom"/>
+        </property>
         <property name="text">
          <string>Files</string>
         </property>
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QTreeView" name="treeView_2"/>
+       <widget class="QTreeView" name="treeView_2">
+        <property name="locale">
+         <locale language="English" country="UnitedKingdom"/>
+        </property>
+       </widget>
       </item>
       <item row="1" column="1">
        <widget class="QTreeView" name="treeView">
+        <property name="locale">
+         <locale language="English" country="UnitedKingdom"/>
+        </property>
         <property name="selectionMode">
          <enum>QAbstractItemView::MultiSelection</enum>
         </property>
@@ -56,16 +69,26 @@
      <layout class="QHBoxLayout" name="horizontalLayout_11">
       <item>
        <widget class="QPushButton" name="pushButton">
+        <property name="locale">
+         <locale language="English" country="UnitedKingdom"/>
+        </property>
         <property name="text">
          <string>Open</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lineEdit"/>
+       <widget class="QLineEdit" name="lineEdit">
+        <property name="locale">
+         <locale language="English" country="UnitedKingdom"/>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QPushButton" name="pushButton_2">
+        <property name="locale">
+         <locale language="English" country="UnitedKingdom"/>
+        </property>
         <property name="text">
          <string>Rename</string>
         </property>
@@ -81,8 +104,11 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="locale">
+       <locale language="English" country="UnitedKingdom"/>
+      </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -390,20 +416,10 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
-             <widget class="QCheckBox" name="checkBox_9">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-              <property name="text">
-               <string>case-sensitive</string>
-              </property>
-             </widget>
-            </item>
             <item row="0" column="0">
              <widget class="QLabel" name="label_3">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -419,7 +435,7 @@
                <bool>false</bool>
               </property>
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -432,27 +448,92 @@
                <bool>false</bool>
               </property>
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
              </widget>
             </item>
-            <item row="1" column="0">
-             <widget class="QCheckBox" name="checkBox_8">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-              <property name="text">
-               <string>RegEx</string>
-              </property>
-             </widget>
+            <item row="1" column="1">
+             <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <item>
+               <widget class="QCheckBox" name="checkBox_9">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="text">
+                 <string>case-sensitive</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QCheckBox" name="checkBox_8">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="text">
+                 <string>RegEx</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
           </item>
           <item>
            <layout class="QGridLayout" name="gridLayout_3">
+            <item row="2" column="1">
+             <layout class="QHBoxLayout" name="horizontalLayout_9">
+              <property name="sizeConstraint">
+               <enum>QLayout::SetDefaultConstraint</enum>
+              </property>
+              <item>
+               <widget class="QLabel" name="label_15">
+                <property name="text">
+                 <string>Pos. </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="spinBox_8">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_16">
+                <property name="text">
+                 <string> to </string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="spinBox_9">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="1" column="0">
+             <widget class="QCheckBox" name="checkBox_4">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>last n chars</string>
+              </property>
+             </widget>
+            </item>
             <item row="0" column="1">
              <widget class="QSpinBox" name="spinBox">
               <property name="enabled">
@@ -463,16 +544,6 @@
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QCheckBox" name="checkBox_4">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-              <property name="text">
-               <string>last n chars</string>
               </property>
              </widget>
             </item>
@@ -494,8 +565,30 @@
               <property name="enabled">
                <bool>false</bool>
               </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="text">
                <string>first n chars</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QCheckBox" name="checkBox_13">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Range</string>
               </property>
              </widget>
             </item>
@@ -507,7 +600,7 @@
       </widget>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
-        <string>Counting / Numbers</string>
+        <string>Counting / Date</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
@@ -517,8 +610,21 @@
           </property>
           <item>
            <widget class="QCheckBox" name="checkBox_7">
+            <property name="locale">
+             <locale language="English" country="UnitedKingdom"/>
+            </property>
             <property name="text">
              <string>Counting</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_12">
+            <property name="locale">
+             <locale language="English" country="UnitedKingdom"/>
+            </property>
+            <property name="text">
+             <string>Date </string>
             </property>
            </widget>
           </item>
@@ -528,6 +634,76 @@
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
            <layout class="QGridLayout" name="gridLayout_2">
+            <item row="1" column="2">
+             <widget class="QSpinBox" name="spinBox_7">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="2">
+             <widget class="QSpinBox" name="spinBox_4">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QRadioButton" name="radioButton_3">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
+              </property>
+              <property name="text">
+               <string>Suffix</string>
+              </property>
+              <attribute name="buttonGroup">
+               <string notr="true">buttonGroup</string>
+              </attribute>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLabel" name="label_5">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
+              </property>
+              <property name="text">
+               <string>Insert-Pos.</string>
+              </property>
+             </widget>
+            </item>
             <item row="0" column="0">
              <widget class="QRadioButton" name="radioButton">
               <property name="enabled">
@@ -539,6 +715,9 @@
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
+              </property>
               <property name="text">
                <string>Prefix</string>
               </property>
@@ -547,20 +726,29 @@
               </attribute>
              </widget>
             </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_7">
+            <item row="2" column="0">
+             <widget class="QRadioButton" name="radioButton_2">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="text">
-               <string>Start-Pos.</string>
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
               </property>
+              <property name="text">
+               <string>Insert</string>
+              </property>
+              <attribute name="buttonGroup">
+               <string notr="true">buttonGroup</string>
+              </attribute>
              </widget>
             </item>
-            <item row="5" column="0">
+            <item row="1" column="1">
              <widget class="QLabel" name="label_12">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -568,31 +756,21 @@
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
+              </property>
               <property name="text">
                <string>Padding</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_5">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>Insert-Pos.</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1">
+            <item row="0" column="2">
              <widget class="QSpinBox" name="spinBox_3">
               <property name="enabled">
                <bool>false</bool>
               </property>
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -602,6 +780,9 @@
                 <width>103</width>
                 <height>0</height>
                </size>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
               </property>
               <property name="showGroupSeparator" stdset="0">
                <bool>false</bool>
@@ -615,86 +796,225 @@
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QRadioButton" name="radioButton_3">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
+             <widget class="QLabel" name="label_7">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
               </property>
               <property name="text">
-               <string>Suffix</string>
+               <string>Start-Pos.</string>
               </property>
-              <attribute name="buttonGroup">
-               <string notr="true">buttonGroup</string>
-              </attribute>
-             </widget>
-            </item>
-            <item row="4" column="1">
-             <widget class="QSpinBox" name="spinBox_4">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="1">
-             <widget class="QSpinBox" name="spinBox_7">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2">
-             <widget class="QRadioButton" name="radioButton_2">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>Insert</string>
-              </property>
-              <attribute name="buttonGroup">
-               <string notr="true">buttonGroup</string>
-              </attribute>
              </widget>
             </item>
            </layout>
           </item>
           <item>
-           <spacer name="horizontalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Ignored</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>751</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
+           <layout class="QGridLayout" name="gridLayout_6">
+            <item row="4" column="2">
+             <widget class="QSpinBox" name="spinBox_10">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_18">
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
+              </property>
+              <property name="text">
+               <string>Date Display Type</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QRadioButton" name="radioButton_4">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
+              </property>
+              <property name="text">
+               <string>Prefix</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QComboBox" name="comboBox_4">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
+              </property>
+              <item>
+               <property name="text">
+                <string>created</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>last modified</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>today</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>custom</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QRadioButton" name="radioButton_6">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
+              </property>
+              <property name="text">
+               <string>Insert</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QRadioButton" name="radioButton_5">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
+              </property>
+              <property name="text">
+               <string>Suffix</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QLabel" name="label_17">
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
+              </property>
+              <property name="text">
+               <string>Insert-Pos.</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_20">
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
+              </property>
+              <property name="text">
+               <string>Date Source</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QComboBox" name="comboBox_3">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="locale">
+               <locale language="English" country="UnitedKingdom"/>
+              </property>
+              <item>
+               <property name="text">
+                <string>DD-MM-YYYY</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>YYYY-MM-DD</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>MM-DD-YYYY</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <layout class="QHBoxLayout" name="horizontalLayout_10">
+              <item>
+               <widget class="QLabel" name="label_19">
+                <property name="locale">
+                 <locale language="English" country="UnitedKingdom"/>
+                </property>
+                <property name="text">
+                 <string>Separator</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="lineEdit_9">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="locale">
+                 <locale language="English" country="UnitedKingdom"/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item row="1" column="2">
+             <widget class="QDateEdit" name="dateEdit">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="dateTime">
+               <datetime>
+                <hour>0</hour>
+                <minute>0</minute>
+                <second>0</second>
+                <year>2021</year>
+                <month>1</month>
+                <day>1</day>
+               </datetime>
+              </property>
+              <property name="calendarPopup">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </item>
@@ -717,10 +1037,22 @@
     <property name="title">
      <string>Settings</string>
     </property>
+    <widget class="QMenu" name="menuLanguage">
+     <property name="title">
+      <string>Language...</string>
+     </property>
+     <addaction name="actionEnglish"/>
+    </widget>
+    <addaction name="menuLanguage"/>
    </widget>
    <addaction name="menuSettings"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionEnglish">
+   <property name="text">
+    <string>English</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

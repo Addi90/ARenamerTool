@@ -40,6 +40,9 @@ int Renamer::rename()
     if(modifiers & COUNTING){
         NumberModifier::modify(&files);
     }
+    if(modifiers & DATE){
+        DateModifier::modify(&files);
+    }
 
     return count;
 }

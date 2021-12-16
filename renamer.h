@@ -14,6 +14,7 @@
 #include "removemodifier.h"
 #include "numbermodifier.h"
 #include "ifthenmodifier.h"
+#include "datemodifier.h"
 
 
 class Renamer
@@ -27,7 +28,8 @@ public:
             REMOVE = 0x2,
             ADD = 0x4,
             COUNTING = 0x8,
-            IF_THEN = 0x10
+            IF_THEN = 0x10,
+            DATE = 0x20
         };
     Q_DECLARE_FLAGS(Modifiers, Modifier)
 

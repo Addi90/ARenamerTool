@@ -9,6 +9,7 @@ CONFIG += c++11
 
 SOURCES += \
     addmodifier.cpp \
+    datemodifier.cpp \
     ifthenmodifier.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -22,6 +23,7 @@ SOURCES += \
 
 HEADERS += \
     addmodifier.h \
+    datemodifier.h \
     ifthenmodifier.h \
     mainwindow.h \
     modifier.h \

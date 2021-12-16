@@ -110,6 +110,19 @@ MainWindow::MainWindow(QWidget *parent)
             &QCheckBox::stateChanged,
             &IfThenModifier::setCaseSensitiveOption
             );
+    /* DATE */
+    connect(ui->lineEdit_9,
+            &QLineEdit::textChanged,
+            &DateModifier::separator
+            );
+    connect(ui->spinBox_10,
+            &QSpinBox::valueChanged,
+            &DateModifier::insertPosition
+            );
+    connect(ui->dateEdit,
+            &QDateEdit::userDateChanged,
+            &DateModifier::userSetDate
+            );
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -163,6 +176,13 @@ void MainWindow::ifThenOptionResolver(int condition, int consequence)
             IfThenModifier::options |= IfThenModifier::ADD_SUFFIX;
             break;
     }
+}
+
+
+void MainWindow::on_treeView_2_clicked(const QModelIndex &index)
+{
+    QString path = dirModel->filePath(index);
+    ui->treeView->setRootIndex(fileModel->setRootPath(path));
 }
 
 /* Open - Button */
@@ -223,11 +243,13 @@ void MainWindow::on_checkBox_2_stateChanged(int arg1)
         /* rem. front & back n chars CheckBoxes/SpinBoxes */
         ui->checkBox_3->setEnabled(true);
         ui->checkBox_4->setEnabled(true);
+        ui->checkBox_13->setEnabled(true);
         Renamer::modifiers |= Renamer::REMOVE;
     }
     else if(arg1 == Qt::Unchecked){
         ui->checkBox_3->setEnabled(false);
         ui->checkBox_4->setEnabled(false);
+        ui->checkBox_13->setEnabled(false);
         ui->spinBox->setEnabled(false);
         ui->spinBox_2->setEnabled(false);
         Renamer::modifiers &= ~(Renamer::REMOVE);
@@ -387,15 +409,6 @@ void MainWindow::on_comboBox_2_currentIndexChanged(int index)
         ui->spinBox_5->setEnabled(false);
 }
 
-
-void MainWindow::on_treeView_2_clicked(const QModelIndex &index)
-{
-    QString path = dirModel->filePath(index);
-    ui->treeView->setRootIndex(fileModel->setRootPath(path));
-}
-
-
-
 void MainWindow::on_checkBox_8_stateChanged(int arg1)
 {
     if(arg1 == Qt::Unchecked){
@@ -412,5 +425,125 @@ void MainWindow::on_checkBox_11_stateChanged(int arg1)
     } else
         ui->checkBox_10->setChecked(true);
 }
+
+
+/* Date - activate CheckBox */
+void MainWindow::on_checkBox_12_stateChanged(int arg1)
+{
+    if(arg1){
+        ui->comboBox_3->setEnabled(true);
+        ui->comboBox_4->setEnabled(true);
+        ui->lineEdit_9->setEnabled(true);
+        ui->radioButton_4->setEnabled(true);
+        ui->radioButton_5->setEnabled(true);
+        ui->radioButton_6->setEnabled(true);
+        ifThenOptionResolver(ui->comboBox->currentIndex(),ui->comboBox_2->currentIndex());
+
+        /* set standard settings */
+        ui->radioButton_5->setChecked(true);
+        DateModifier::options &= ~(DateModifier::PREFIX | DateModifier::INSERT);
+        DateModifier::options |= DateModifier::SUFFIX;
+
+        on_comboBox_3_currentIndexChanged(ui->comboBox_3->currentIndex());
+
+        ui->lineEdit_9->setText("-");
+
+        ui->dateEdit->setDate(QDate::currentDate());
+
+        Renamer::modifiers |= Renamer::DATE;
+    }
+    else if(arg1 == Qt::Unchecked){
+        ui->comboBox_3->setEnabled(false);
+        ui->comboBox_4->setEnabled(false);
+        ui->lineEdit_9->setEnabled(false);
+        ui->radioButton_4->setEnabled(false);
+        ui->radioButton_5->setEnabled(false);
+        ui->radioButton_6->setEnabled(false);
+        ui->spinBox_10->setEnabled(false);
+        ui->dateEdit->setEnabled(false);
+        Renamer::modifiers &= ~(Renamer::DATE);
+    }
+}
+
+/* Date - Date Display Mode ComboBox */
+void MainWindow::on_comboBox_3_currentIndexChanged(int index)
+{
+    switch(index){
+        case 0:
+            DateModifier::options &= ~(DateModifier::MODE_YMD | DateModifier::MODE_MDY);
+            DateModifier::options |= DateModifier::MODE_DMY;
+            break;
+        case 1:
+            DateModifier::options &= ~(DateModifier::MODE_MDY | DateModifier::MODE_DMY);
+            DateModifier::options |= DateModifier::MODE_YMD;
+            break;
+        case 2:
+            DateModifier::options &= ~(DateModifier::MODE_YMD | DateModifier::MODE_DMY);
+            DateModifier::options |= DateModifier::MODE_MDY;
+            break;
+    }
+}
+
+/* Date - Date Source ComboBox */
+void MainWindow::on_comboBox_4_currentIndexChanged(int index)
+{
+    DateModifier::options &= ~(0xF);
+    switch(index){
+    case 0:
+        DateModifier::options |= ~(DateModifier::DATE_MADE);
+        ui->dateEdit->setEnabled(false);
+        break;
+    case 1:
+        DateModifier::options |= ~(DateModifier::DATE_MOD);
+        ui->dateEdit->setEnabled(false);
+        break;
+    case 2:
+        DateModifier::options |= ~(DateModifier::DATE_TODAY);
+        ui->dateEdit->setEnabled(false);
+        break;
+    case 3:
+        DateModifier::options |= ~(DateModifier::DATE_CUSTOM);
+        ui->dateEdit->setEnabled(true);
+        break;
+    }
+}
+
+/* Date - Prefix RadioButton */
+void MainWindow::on_radioButton_4_clicked()
+{
+    if(ui->radioButton->isChecked()){
+        ui->radioButton_5->setChecked(false);
+        ui->radioButton_6->setChecked(false);
+        ui->spinBox_10->setEnabled(false);
+        DateModifier::options |= DateModifier::PREFIX;
+        DateModifier::options &= ~(DateModifier::SUFFIX | DateModifier::INSERT);
+    }
+}
+
+/* Date - Suffix RadioButton */
+void MainWindow::on_radioButton_5_clicked()
+{
+    if(ui->radioButton->isChecked()){
+        ui->radioButton_4->setChecked(false);
+        ui->radioButton_6->setChecked(false);
+        ui->spinBox_10->setEnabled(false);
+        DateModifier::options |= DateModifier::SUFFIX;
+        DateModifier::options &= ~(DateModifier::PREFIX | DateModifier::INSERT);
+    }
+}
+
+/* Date - Insert RadioButton */
+void MainWindow::on_radioButton_6_clicked()
+{
+    if(ui->radioButton->isChecked()){
+        ui->radioButton_4->setChecked(false);
+        ui->radioButton_5->setChecked(false);
+        ui->spinBox_10->setEnabled(true);
+        DateModifier::options |= DateModifier::INSERT;
+        DateModifier::options &= ~(DateModifier::SUFFIX | DateModifier::PREFIX);
+    }
+}
+
+
 
 

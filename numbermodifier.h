@@ -3,7 +3,7 @@
 
 #include "modifier.h"
 
-class NumberModifier
+class NumberModifier : public Modifier
 {
 public:
     enum Option{

@@ -15,6 +15,7 @@
 #include "replacemodifier.h"
 #include "numbermodifier.h"
 #include "ifthenmodifier.h"
+#include "datemodifier.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -34,6 +35,7 @@ private:
     RenameFileModel *fileModel;
     QFileSystemModel *dirModel;
     void ifThenOptionResolver(int condition, int consequence);
+
 private slots:
     void on_pushButton_clicked();
     void on_treeView_selectionChanged();
@@ -54,5 +56,11 @@ private slots:
     void on_treeView_2_clicked(const QModelIndex &index);
     void on_checkBox_8_stateChanged(int arg1);
     void on_checkBox_11_stateChanged(int arg1);
+    void on_comboBox_3_currentIndexChanged(int index);
+    void on_comboBox_4_currentIndexChanged(int index);
+    void on_radioButton_4_clicked();
+    void on_radioButton_5_clicked();
+    void on_radioButton_6_clicked();
+    void on_checkBox_12_stateChanged(int arg1);
 };
 #endif // MAINWINDOW_H
