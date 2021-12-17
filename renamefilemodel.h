@@ -28,7 +28,7 @@ class RenameFileModel: public QFileSystemModel
     }*/
 
     /* for data of the last column, add new name */
-    QVariant data(const QModelIndex& index,int role) const
+    QVariant data(const QModelIndex& index,int role) const override
     {
        if(!index.isValid()){return QFileSystemModel::data(index,role);}
 
@@ -66,10 +66,13 @@ class RenameFileModel: public QFileSystemModel
               default:{}
            }
        }
-
-
        return QFileSystemModel::data(index,role);
    }
+
+    /*bool setData(const QModelIndex &index, const QVariant &value, int role) override {
+       emit dataChanged(index,index, QVector<int>( Qt::ItemDataRole::DisplayRole ));
+       return QFileSystemModel::setData(index, value, role);
+    }*/
 
 };
 

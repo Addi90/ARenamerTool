@@ -11,7 +11,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     dirModel = new QFileSystemModel;
     dirModel->setFilter(QDir::Dirs);
-    QModelIndex homeIndex = dirModel->setRootPath(QDir::homePath());
+    path = QDir::homePath();
+    QModelIndex homeIndex = dirModel->setRootPath(path);
     ui->treeView_2->setModel(dirModel);
     ui->treeView_2->scrollTo(homeIndex);
     ui->treeView_2->setColumnWidth(0,this->width());
@@ -24,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
     fileModel->setFilter(QDir::Files);
     //ui->treeView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->treeView->setModel(fileModel);
-    ui->treeView->setRootIndex(fileModel->setRootPath(QDir::homePath()));
+    ui->treeView->setRootIndex(fileModel->setRootPath(path));
     //ui->treeView->setSortingEnabled(true);
     //ui->treeView->show();
 
@@ -41,6 +42,15 @@ MainWindow::MainWindow(QWidget *parent)
     ui->treeView->hideColumn(3);
     ui->treeView->hideColumn(5);
 
+    /* clear selected items in treeView (files) when a dir in treeView_2 is clicked*/
+    connect(ui->treeView_2,
+                &QTreeView::clicked,
+                ui->treeView->selectionModel(),
+                &QItemSelectionModel::clearSelection
+                );
+
+    controlsRedrawConnector();
+
     /* ADD */
     connect(ui->lineEdit_2,
             &QLineEdit::textChanged,
@@ -49,6 +59,14 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->lineEdit_3,
             &QLineEdit::textChanged,
             &AddModifier::suffixString
+            );
+    connect(ui->lineEdit_8,
+            &QLineEdit::textChanged,
+            &AddModifier::insertString
+            );
+    connect(ui->spinBox_6,
+            &QSpinBox::valueChanged,
+            &AddModifier::insertPosition
             );
     /* REMOVE */
     connect(ui->spinBox,
@@ -133,6 +151,15 @@ MainWindow::MainWindow(QWidget *parent)
             );
 }
 
+
+/* reload and display the treeView (files) */
+void MainWindow::repaintView()
+{
+    ui->treeView->setRootIndex(fileModel->setRootPath(path));
+}
+
+
+
 void MainWindow::on_pushButton_clicked()
 {
     QFileDialog dialog(this);
@@ -186,10 +213,52 @@ void MainWindow::ifThenOptionResolver(int condition, int consequence)
     }
 }
 
+/* connect all controls (Buttons, CheckBoxes, LineEdits...) for instant refresh of treeView preview */
+void MainWindow::controlsRedrawConnector()
+{
+    QList<QLineEdit*>lineEdits = ui->tabWidget->findChildren<QLineEdit*>();
+    QList<QCheckBox*>checkBoxes = ui->tabWidget->findChildren<QCheckBox*>();
+    QList<QSpinBox*>spinBoxes = ui->tabWidget->findChildren<QSpinBox*>();
+    QList<QComboBox*>comboBoxes = ui->tabWidget->findChildren<QComboBox*>();
+    QList<QDateEdit*>dateEdits = ui->tabWidget->findChildren<QDateEdit*>();
 
+
+    foreach(QLineEdit* lineEdit,lineEdits){
+        connect(lineEdit,
+                &QLineEdit::textEdited,
+                this,
+                &MainWindow::repaintView);
+    }
+    foreach(QCheckBox* checkBox,checkBoxes){
+        connect(checkBox,
+                &QCheckBox::stateChanged,
+                this,
+                &MainWindow::repaintView);
+    }
+    foreach(QSpinBox* spinBox,spinBoxes){
+        connect(spinBox,
+                &QSpinBox::valueChanged,
+                this,
+                &MainWindow::repaintView);
+    }
+    foreach(QComboBox* comboBox,comboBoxes){
+        connect(comboBox,
+                &QComboBox::currentIndexChanged,
+                this,
+                &MainWindow::repaintView);
+    }
+    foreach(QDateEdit* dateEdit,dateEdits){
+        connect(dateEdit,
+                &QDateEdit::userDateChanged,
+                this,
+                &MainWindow::repaintView);
+    }
+}
+
+/* Directory Selection - treeView2 */
 void MainWindow::on_treeView_2_clicked(const QModelIndex &index)
 {
-    QString path = dirModel->filePath(index);
+    path = dirModel->filePath(index);
     ui->treeView->setRootIndex(fileModel->setRootPath(path));
 }
 
@@ -241,7 +310,6 @@ void MainWindow::on_checkBox_stateChanged(int arg1)
         ui->spinBox_6->setEnabled(false);
         Renamer::modifiers &= ~(Renamer::ADD);
     }
-
 }
 
 /* Remove - CheckBox */
@@ -307,7 +375,6 @@ void MainWindow::on_checkBox_13_stateChanged(int arg1)
         RemoveModifier::options |= RemoveModifier::REMOVE_RANGE;
     }
 }
-
 
 /* Replace - CheckBox */
 void MainWindow::on_checkBox_5_stateChanged(int arg1)

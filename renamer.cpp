@@ -22,7 +22,7 @@ Renamer::Renamer()
 int Renamer::rename()
 {
     int count = 0;
-    reset();
+    resetRenamed();
     sortList();
 
     if(modifiers & REPLACE){
@@ -43,7 +43,6 @@ int Renamer::rename()
     if(modifiers & DATE){
         DateModifier::modify(&files);
     }
-
     return count;
 }
 
@@ -74,13 +73,20 @@ QString Renamer::preview(const int row)
     return "";
 }
 
-int Renamer::reset()
+int Renamer::resetRenamed()
 {
     int count = 0;
     foreach(RenameFile* rFile,files){
         rFile->newBaseName = rFile->baseName;
     }
     return count;
+}
+
+int Renamer::resetFilesList()
+{
+    int count = files.length();
+     files.clear();
+     return count;
 }
 
 void Renamer::sortList()

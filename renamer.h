@@ -43,7 +43,8 @@ public:
     static unsigned int modifiers;
 
     static QString preview(const int );
-    static int reset();
+    static int resetRenamed();
+    static int resetFilesList();
     static void sortList();
     const QList<RenameFile*> &getFiles() const;
     static void setFiles(const QList<RenameFile*> &newFiles);

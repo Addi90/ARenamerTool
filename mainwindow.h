@@ -7,6 +7,8 @@
 #include <QAbstractItemModel>
 #include <QDebug>
 #include <QMessageBox>
+
+
 #include "renamefilemodel.h"
 #include "renamefile.h"
 #include "renamer.h"
@@ -34,7 +36,10 @@ private:
     Ui::MainWindow *ui;
     RenameFileModel *fileModel;
     QFileSystemModel *dirModel;
+    QString path;
     void ifThenOptionResolver(int condition, int consequence);
+    void controlsRedrawConnector();
+    void delay();
 
 private slots:
     void on_pushButton_clicked();
@@ -63,5 +68,7 @@ private slots:
     void on_radioButton_6_clicked();
     void on_checkBox_12_stateChanged(int arg1);
     void on_checkBox_13_stateChanged(int arg1);
+
+    void repaintView();
 };
 #endif // MAINWINDOW_H
