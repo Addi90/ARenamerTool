@@ -7,17 +7,18 @@
 #include <QAbstractItemModel>
 #include <QDebug>
 #include <QMessageBox>
-
+#include <QActionGroup>
+#include <QTranslator>
 
 #include "renamefilemodel.h"
 #include "renamefile.h"
 #include "renamer.h"
-#include "addmodifier.h"
-#include "removemodifier.h"
-#include "replacemodifier.h"
-#include "numbermodifier.h"
-#include "ifthenmodifier.h"
-#include "datemodifier.h"
+#include "modifiers/addmodifier.h"
+#include "modifiers/removemodifier.h"
+#include "modifiers/replacemodifier.h"
+#include "modifiers/numbermodifier.h"
+#include "modifiers/ifthenmodifier.h"
+#include "modifiers/datemodifier.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -37,9 +38,28 @@ private:
     RenameFileModel *fileModel;
     QFileSystemModel *dirModel;
     QString path;
+    QActionGroup* langGroup;
+
     void ifThenOptionResolver(int condition, int consequence);
     void controlsRedrawConnector();
     void delay();
+    // loads a language by the given language shortcur (e.g. de, en)
+    void loadLanguage(const QString& rLanguage);
+
+    // creates the language menu dynamically from the content of m_langPath
+    void createLanguageMenu();
+
+    QTranslator m_translator; // contains the translations for this application
+    QTranslator m_translatorQt; // contains the translations for qt
+    QString m_currLang; // contains the currently loaded language
+    QString m_langPath; // Path of language files. This is always fixed to /languages.
+protected:
+    // this event is called, when a new translator is loaded or the system language is changed
+    void changeEvent(QEvent*);
+
+protected slots:
+    // this slot is called by the language menu actions
+    void slotLanguageChanged(QAction* action);
 
 private slots:
     void on_pushButton_clicked();

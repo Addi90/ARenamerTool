@@ -8,10 +8,11 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-
     dirModel = new QFileSystemModel;
     dirModel->setFilter(QDir::Dirs);
     path = QDir::homePath();
+
+    /* setup directory treeView */
     QModelIndex homeIndex = dirModel->setRootPath(path);
     ui->treeView_2->setModel(dirModel);
     ui->treeView_2->scrollTo(homeIndex);
@@ -20,14 +21,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->treeView_2->hideColumn(2);
     ui->treeView_2->hideColumn(3);
 
-
+    /* setup file treeView */
     fileModel = new RenameFileModel;
     fileModel->setFilter(QDir::Files);
-    //ui->treeView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->treeView->setModel(fileModel);
     ui->treeView->setRootIndex(fileModel->setRootPath(path));
-    //ui->treeView->setSortingEnabled(true);
-    //ui->treeView->show();
 
     connect(ui->treeView->selectionModel(),
             SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
@@ -50,6 +48,10 @@ MainWindow::MainWindow(QWidget *parent)
                 );
 
     controlsRedrawConnector();
+
+    /* create a language selection menu */
+    createLanguageMenu();
+    connect(langGroup, SIGNAL (triggered(QAction *)), this, SLOT (slotLanguageChanged(QAction *)));
 
     /* ADD */
     connect(ui->lineEdit_2,
@@ -151,6 +153,96 @@ MainWindow::MainWindow(QWidget *parent)
             );
 }
 
+/* Settings -> Languages menu - menu entries dynamically created from translation files
+   Example Code for dynamically loading: wiki.qt.io/How_to_create_a_multi_language_application */
+void MainWindow::createLanguageMenu() {
+    langGroup = new QActionGroup(ui->menuLanguage);
+    langGroup->setExclusive(true);
+
+    connect(langGroup, SIGNAL (triggered(QAction *)), this, SLOT (slotLanguageChanged(QAction *)));
+
+    /* get system locale */
+    QString defaultLocale = QLocale::system().name(); // e.g. "de_DE"
+
+    /* get available translation files (in app. dir) */
+    QDir dir(QApplication::applicationDirPath());
+    QStringList fileNames = dir.entryList(QStringList("ARenamerTool_*.qm"));
+
+    for (int i = 0; i < fileNames.size(); ++i) {
+        /* extract locale from filename */
+        QString locale;
+        locale = fileNames[i]; // "TranslationExample_de.qm"
+        locale.truncate(locale.lastIndexOf('.')); // "TranslationExample_de"
+        locale.remove(0, locale.indexOf('_') + 1); // "de"
+
+        QString lang = QLocale::languageToString(QLocale(locale).language());
+
+        QAction *action = new QAction(lang, this);
+        action->setCheckable(true);
+        action->setData(locale);
+
+        ui->menuLanguage->addAction(action);
+        langGroup->addAction(action);
+
+        // set default translators and language checked
+        if (defaultLocale == locale) {
+            action->setChecked(true);
+        }
+    }
+}
+
+/* Called every time, when a menu entry of the language menu is called */
+void MainWindow::slotLanguageChanged(QAction* action)
+{
+    if(0 != action) {
+        loadLanguage(action->data().toString());
+        setWindowIcon(action->icon());
+    }
+}
+
+void switchTranslator(QTranslator& translator, const QString& filename) {
+    // remove the old translator
+    QApplication::removeTranslator(&translator);
+
+    // load the new translator
+    QString path = QApplication::applicationDirPath();
+    if(translator.load(path + '/'+ filename)) // load a .qm file
+        QApplication::installTranslator(&translator);
+}
+
+void MainWindow::loadLanguage(const QString& rLanguage) {
+    if(m_currLang != rLanguage) {
+        m_currLang = rLanguage;
+        QLocale locale = QLocale(m_currLang);
+        QLocale::setDefault(locale);
+        QString languageName = QLocale::languageToString(locale.language());
+        switchTranslator(m_translator, QString("ARenamerTool_%1.qm").arg(rLanguage));
+        switchTranslator(m_translatorQt, QString("qt_%1.qm").arg(rLanguage));
+        ui->statusbar->showMessage(tr("Current Language changed to %1").arg(languageName),3000);
+    }
+}
+
+/* retranslate the UI if translator was changed */
+void MainWindow::changeEvent(QEvent* event) {
+    if(0 != event) {
+        switch(event->type()) {
+        // this event is send if a translator is loaded
+        case QEvent::LanguageChange:
+            ui->retranslateUi(this);
+            break;
+
+        // this event is sent if the system language changes
+        case QEvent::LocaleChange:
+            {
+                QString locale = QLocale::system().name();
+                locale.truncate(locale.lastIndexOf('_'));
+                loadLanguage(locale);
+            }
+            break;
+        }
+    }
+    QMainWindow::changeEvent(event);
+}
 
 /* reload and display the treeView (files) */
 void MainWindow::repaintView()
@@ -158,8 +250,7 @@ void MainWindow::repaintView()
     ui->treeView->setRootIndex(fileModel->setRootPath(path));
 }
 
-
-
+/* Open - Button for opening directory from filebrowser dialog */
 void MainWindow::on_pushButton_clicked()
 {
     QFileDialog dialog(this);
@@ -168,7 +259,6 @@ void MainWindow::on_pushButton_clicked()
 
     ui->lineEdit->setText(dirName);
 
-    //ui->treeView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->treeView->setRootIndex(fileModel->setRootPath(dirName));
     ui->treeView->show();
     connect(ui->treeView->selectionModel(),
@@ -176,7 +266,6 @@ void MainWindow::on_pushButton_clicked()
             this,
             SLOT(on_treeView_selectionChanged())
             );
-
 }
 
 

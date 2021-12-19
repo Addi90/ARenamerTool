@@ -1059,7 +1059,6 @@
      <property name="title">
       <string>Language...</string>
      </property>
-     <addaction name="actionEnglish"/>
     </widget>
     <addaction name="menuLanguage"/>
    </widget>

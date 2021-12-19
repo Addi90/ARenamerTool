@@ -40,3 +40,15 @@ void AddModifier::suffixString(const QString &newSuffixStr)
     suffixStr = newSuffixStr;
     qDebug() << "changed suffixStr to: " << suffixStr;
 }
+
+void AddModifier::insertString(const QString &newInsertStr)
+{
+    insertStr = newInsertStr;
+    qDebug() << "changed insertStr to: " << insertStr;
+}
+
+void AddModifier::insertPosition(const int &pos)
+{
+    insertPos = pos;
+    qDebug() << "changed insertPos to: " << insertPos;
+}

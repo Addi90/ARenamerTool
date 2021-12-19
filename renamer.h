@@ -8,13 +8,13 @@
 #include <algorithm>
 
 #include "renamefile.h"
-#include "Modifier.h"
-#include "replacemodifier.h"
-#include "addmodifier.h"
-#include "removemodifier.h"
-#include "numbermodifier.h"
-#include "ifthenmodifier.h"
-#include "datemodifier.h"
+#include "modifiers/modifier.h"
+#include "modifiers/replacemodifier.h"
+#include "modifiers/addmodifier.h"
+#include "modifiers/removemodifier.h"
+#include "modifiers/numbermodifier.h"
+#include "modifiers/ifthenmodifier.h"
+#include "modifiers/datemodifier.h"
 
 
 class Renamer

@@ -8,37 +8,39 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    addmodifier.cpp \
-    datemodifier.cpp \
-    ifthenmodifier.cpp \
+    modifiers/addmodifier.cpp \
+    modifiers/datemodifier.cpp \
+    modifiers/ifthenmodifier.cpp \
     main.cpp \
     mainwindow.cpp \
-    modifier.cpp \
-    numbermodifier.cpp \
-    removemodifier.cpp \
+    modifiers/modifier.cpp \
+    modifiers/numbermodifier.cpp \
+    modifiers/removemodifier.cpp \
     renamefile.cpp \
     renamefilemodel.cpp \
     renamer.cpp \
-    replacemodifier.cpp
+    modifiers/replacemodifier.cpp
 
 HEADERS += \
-    addmodifier.h \
-    datemodifier.h \
-    ifthenmodifier.h \
+    modifiers/addmodifier.h \
+    modifiers/datemodifier.h \
+    modifiers/ifthenmodifier.h \
     mainwindow.h \
-    modifier.h \
-    numbermodifier.h \
-    removemodifier.h \
+    modifiers/modifier.h \
+    modifiers/numbermodifier.h \
+    modifiers/removemodifier.h \
     renamefile.h \
     renamefilemodel.h \
     renamer.h \
-    replacemodifier.h
+    modifiers/replacemodifier.h
 
 FORMS += \
     mainwindow.ui
 
 TRANSLATIONS += \
-    ARenamerTool_de_DE.ts
+    languages/ARenamerTool_de_DE.ts \
+    languages/ARenamerTool_en_EN.ts
+
 CONFIG += lrelease
 CONFIG += embed_translations
 
@@ -46,3 +48,7 @@ CONFIG += embed_translations
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    languages/ARenamerTool_en_EN.ts \
+    languages/ARenamerTool_de_DE.ts
