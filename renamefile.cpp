@@ -63,7 +63,8 @@ RenameFile::RenameFile(const QModelIndex &modelIndex)
     filePath = modelIndex.siblingAtColumn(5).data().toString();
     file = new QFile(filePath+"/"+modelIndex.data().toString());
 
-    int dotPos = modelIndex.data().toString().indexOf('.');
+    /* separate file-ending (after last dot) from file-name */
+    int dotPos = modelIndex.data().toString().lastIndexOf('.');
     if(dotPos > -1){
         baseName = modelIndex.data().toString().left(dotPos);
         fileEnding = modelIndex.data().toString().right(modelIndex.data().toString().length() - dotPos);

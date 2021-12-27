@@ -29,7 +29,9 @@ public:
             ADD = 0x4,
             COUNTING = 0x8,
             IF_THEN = 0x10,
-            DATE = 0x20
+            DATE = 0x20,
+
+            RENAME_DIRS = 0x40,
         };
     Q_DECLARE_FLAGS(Modifiers, Modifier)
 
@@ -43,7 +45,7 @@ public:
     static unsigned int modifiers;
 
     static QString preview(const int );
-    static int resetRenamed();
+    static int resetNewBaseName();
     static int resetFilesList();
     static void sortList();
     const QList<RenameFile*> &getFiles() const;

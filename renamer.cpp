@@ -22,7 +22,7 @@ Renamer::Renamer()
 int Renamer::rename()
 {
     int count = 0;
-    resetRenamed();
+    resetNewBaseName();
     sortList();
 
     if(modifiers & REPLACE){
@@ -49,12 +49,18 @@ int Renamer::rename()
 int Renamer::save()
 {
     int count = 0;
+
+    /* apply modifiers */
     rename();
 
+    /* rename all, check if it is a file (exists=true) or a dir (exists=false),
+     * increment count if renaming worked */
     foreach(RenameFile* rFile,files){
-        if(rFile->renameFile()){
-            count++;
-            qDebug() << "renamed to: " << rFile->getFile()->fileName();
+        if(rFile->file->exists()){
+            if(rFile->renameFile()){
+                count++;
+                qDebug() << "renamed to: " << rFile->getFile()->fileName();
+            }
         }
     }
     return count;
@@ -73,7 +79,7 @@ QString Renamer::preview(const int row)
     return "";
 }
 
-int Renamer::resetRenamed()
+int Renamer::resetNewBaseName()
 {
     int count = 0;
     foreach(RenameFile* rFile,files){

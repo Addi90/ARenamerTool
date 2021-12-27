@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     dirModel = new QFileSystemModel;
-    dirModel->setFilter(QDir::Dirs);
+    dirModel->setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
     path = QDir::homePath();
 
     /* setup directory treeView */
@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     /* setup file treeView */
     fileModel = new RenameFileModel;
-    fileModel->setFilter(QDir::Files);
+    fileModel->setFilter(QDir::Files | QDir::NoDotAndDotDot);
     ui->treeView->setModel(fileModel);
     ui->treeView->setRootIndex(fileModel->setRootPath(path));
 
@@ -33,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent)
             SLOT(on_treeView_selectionChanged())
             );
 
+    ui->treeView->setHeaderHidden(false);
     ui->treeView->setColumnWidth(0,this->width()*0.3);
     //ui->treeView->setColumnWidth(4,this->width()*0.4);
     ui->treeView->hideColumn(1);
