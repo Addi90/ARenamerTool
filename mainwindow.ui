@@ -152,7 +152,7 @@
        <locale language="English" country="UnitedKingdom"/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -1128,6 +1128,55 @@
    </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>treeView_2</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>lineEdit</tabstop>
+  <tabstop>pushButton_2</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>checkBox</tabstop>
+  <tabstop>checkBox_6</tabstop>
+  <tabstop>lineEdit_2</tabstop>
+  <tabstop>lineEdit_3</tabstop>
+  <tabstop>lineEdit_8</tabstop>
+  <tabstop>spinBox_6</tabstop>
+  <tabstop>comboBox</tabstop>
+  <tabstop>lineEdit_6</tabstop>
+  <tabstop>checkBox_11</tabstop>
+  <tabstop>checkBox_10</tabstop>
+  <tabstop>comboBox_2</tabstop>
+  <tabstop>lineEdit_7</tabstop>
+  <tabstop>spinBox_5</tabstop>
+  <tabstop>checkBox_5</tabstop>
+  <tabstop>checkBox_2</tabstop>
+  <tabstop>lineEdit_4</tabstop>
+  <tabstop>checkBox_9</tabstop>
+  <tabstop>checkBox_8</tabstop>
+  <tabstop>lineEdit_5</tabstop>
+  <tabstop>checkBox_3</tabstop>
+  <tabstop>spinBox</tabstop>
+  <tabstop>checkBox_4</tabstop>
+  <tabstop>spinBox_2</tabstop>
+  <tabstop>checkBox_13</tabstop>
+  <tabstop>spinBox_8</tabstop>
+  <tabstop>spinBox_9</tabstop>
+  <tabstop>checkBox_7</tabstop>
+  <tabstop>checkBox_12</tabstop>
+  <tabstop>radioButton</tabstop>
+  <tabstop>spinBox_3</tabstop>
+  <tabstop>radioButton_3</tabstop>
+  <tabstop>spinBox_7</tabstop>
+  <tabstop>radioButton_2</tabstop>
+  <tabstop>spinBox_4</tabstop>
+  <tabstop>comboBox_3</tabstop>
+  <tabstop>lineEdit_9</tabstop>
+  <tabstop>comboBox_4</tabstop>
+  <tabstop>dateEdit</tabstop>
+  <tabstop>radioButton_4</tabstop>
+  <tabstop>radioButton_5</tabstop>
+  <tabstop>radioButton_6</tabstop>
+  <tabstop>spinBox_10</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
  <buttongroups>
