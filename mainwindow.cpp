@@ -68,37 +68,37 @@ MainWindow::MainWindow(QWidget *parent)
             &AddModifier::insertString
             );
     connect(ui->spinBox_6,
-            &QSpinBox::valueChanged,
+            QOverload<int>::of(&QSpinBox::valueChanged),
             &AddModifier::insertPosition
             );
     /* REMOVE */
     connect(ui->spinBox,
-            &QSpinBox::valueChanged,
+            QOverload<int>::of(&QSpinBox::valueChanged),
             &RemoveModifier::removeFrontChars
             );
     connect(ui->spinBox_2,
-            &QSpinBox::valueChanged,
+            QOverload<int>::of(&QSpinBox::valueChanged),
             &RemoveModifier::removeBackChars
             );
     connect(ui->spinBox_8,
-            &QSpinBox::valueChanged,
+            QOverload<int>::of(&QSpinBox::valueChanged),
             &RemoveModifier::removeRangeStart
             );
     connect(ui->spinBox_9,
-            &QSpinBox::valueChanged,
+            QOverload<int>::of(&QSpinBox::valueChanged),
             &RemoveModifier::removeRangeEnd
             );
     /* NUMBERS */
     connect(ui->spinBox_3,
-            &QSpinBox::valueChanged,
+            QOverload<int>::of(&QSpinBox::valueChanged),
             &NumberModifier::startNumber
             );
     connect(ui->spinBox_4,
-            &QSpinBox::valueChanged,
+            QOverload<int>::of(&QSpinBox::valueChanged),
             &NumberModifier::insertPosition
             );
     connect(ui->spinBox_7,
-            &QSpinBox::valueChanged,
+            QOverload<int>::of(&QSpinBox::valueChanged),
             &NumberModifier::paddingSize
             );
     /* REPLACE */
@@ -128,7 +128,7 @@ MainWindow::MainWindow(QWidget *parent)
             &IfThenModifier::consequenceString
             );
     connect(ui->spinBox_5,
-            &QSpinBox::valueChanged,
+            QOverload<int>::of(&QSpinBox::valueChanged),
             &IfThenModifier::insertPosition
             );
     connect(ui->checkBox_10,
@@ -145,7 +145,7 @@ MainWindow::MainWindow(QWidget *parent)
             &DateModifier::separator
             );
     connect(ui->spinBox_10,
-            &QSpinBox::valueChanged,
+            QOverload<int>::of(&QSpinBox::valueChanged),
             &DateModifier::insertPosition
             );
     connect(ui->dateEdit,
@@ -327,13 +327,13 @@ void MainWindow::controlsRedrawConnector()
     }
     foreach(QSpinBox* spinBox,spinBoxes){
         connect(spinBox,
-                &QSpinBox::valueChanged,
+                QOverload<int>::of(&QSpinBox::valueChanged),
                 this,
                 &MainWindow::repaintView);
     }
     foreach(QComboBox* comboBox,comboBoxes){
         connect(comboBox,
-                &QComboBox::currentIndexChanged,
+                QOverload<int>::of(&QComboBox::currentIndexChanged),
                 this,
                 &MainWindow::repaintView);
     }

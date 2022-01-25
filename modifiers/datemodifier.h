@@ -3,6 +3,9 @@
 
 #include "modifier.h"
 #include <QMutex>
+#include <QDate>
+#include <QDateTime>
+#include <QTime>
 
 class DateModifier : public Modifier
 {
