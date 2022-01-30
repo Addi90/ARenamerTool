@@ -46,12 +46,29 @@ MainWindow::MainWindow(QWidget *parent)
     ui->fileTreeView->hideColumn(3);
     ui->fileTreeView->hideColumn(5);
 
-
     /* clear selected items in fileTreeView when a dir in dirTreeView is clicked*/
     connect(ui->dirTreeView,
                 &QTreeView::clicked,
                 ui->fileTreeView->selectionModel(),
                 &QItemSelectionModel::clearSelection
+                );
+
+    controlsRedrawConnector();
+
+    /* clear selected items in fileTreeView when clear button is clicked */
+    connect(ui->pushButton_4,
+                &QPushButton::clicked,
+                ui->fileTreeView->selectionModel(),
+                &QItemSelectionModel::clearSelection
+                );
+
+    controlsRedrawConnector();
+
+    /* select all items in fileTreeView when select all button is clicked */
+    connect(ui->pushButton_3,
+                &QPushButton::clicked,
+                ui->fileTreeView,
+                &QTreeView::selectAll
                 );
 
     controlsRedrawConnector();
@@ -160,6 +177,8 @@ MainWindow::MainWindow(QWidget *parent)
             &DateModifier::userSetDate
             );
 }
+
+
 
 /* Settings -> Languages menu - menu entries dynamically created from translation files
    Example Code for dynamically loading: wiki.qt.io/How_to_create_a_multi_language_application */
@@ -513,7 +532,7 @@ void MainWindow::on_checkBox_7_stateChanged(int arg1)
         ui->radioButton_2->setEnabled(false);
         ui->radioButton_3->setEnabled(false);
         ui->spinBox_3->setEnabled(false);
-        ui->spinBox_7->setEnabled(true);
+        ui->spinBox_7->setEnabled(false);
         Renamer::modifiers &= ~(Renamer::COUNTING);
     }
 }
@@ -733,9 +752,5 @@ void MainWindow::on_radioButton_6_clicked()
         DateModifier::options &= ~(DateModifier::SUFFIX | DateModifier::PREFIX);
     }
 }
-
-
-
-
 
 
