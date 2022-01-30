@@ -12,39 +12,45 @@ MainWindow::MainWindow(QWidget *parent)
     dirModel->setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
     path = QDir::homePath();
 
+    ui->splitter->setSizes(QList<int>()<<ui->splitter->width()*0.3<<ui->splitter->width()*0.7);
+
     /* setup directory treeView */
     QModelIndex homeIndex = dirModel->setRootPath(path);
-    ui->treeView_2->setModel(dirModel);
-    ui->treeView_2->scrollTo(homeIndex);
-    ui->treeView_2->setColumnWidth(0,this->width());
-    ui->treeView_2->hideColumn(1);
-    ui->treeView_2->hideColumn(2);
-    ui->treeView_2->hideColumn(3);
+    ui->dirTreeView->setModel(dirModel);
+    ui->dirTreeView->scrollTo(homeIndex);
+    ui->dirTreeView->setColumnWidth(0,this->width());
+    ui->dirTreeView->hideColumn(1);
+    ui->dirTreeView->hideColumn(2);
+    ui->dirTreeView->hideColumn(3);
 
     /* setup file treeView */
     fileModel = new RenameFileModel;
     fileModel->setFilter(QDir::Files | QDir::NoDotAndDotDot);
-    ui->treeView->setModel(fileModel);
-    ui->treeView->setRootIndex(fileModel->setRootPath(path));
 
-    connect(ui->treeView->selectionModel(),
+    ui->fileTreeView->setModel(fileModel);
+    ui->fileTreeView->setRootIndex(fileModel->setRootPath(path));
+
+    connect(ui->fileTreeView->selectionModel(),
             SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
             this,
             SLOT(on_treeView_selectionChanged())
             );
 
-    ui->treeView->setHeaderHidden(false);
-    ui->treeView->setColumnWidth(0,this->width()*0.3);
+    ui->fileTreeView->setHeaderHidden(false);
+
+    ui->fileTreeView->setColumnWidth(0,this->width()*0.3);
     //ui->treeView->setColumnWidth(4,this->width()*0.4);
-    ui->treeView->hideColumn(1);
-    ui->treeView->hideColumn(2);
-    ui->treeView->hideColumn(3);
-    ui->treeView->hideColumn(5);
+
+    ui->fileTreeView->hideColumn(1);
+    ui->fileTreeView->hideColumn(2);
+    ui->fileTreeView->hideColumn(3);
+    ui->fileTreeView->hideColumn(5);
+
 
     /* clear selected items in treeView (files) when a dir in treeView_2 is clicked*/
-    connect(ui->treeView_2,
+    connect(ui->dirTreeView,
                 &QTreeView::clicked,
-                ui->treeView->selectionModel(),
+                ui->fileTreeView->selectionModel(),
                 &QItemSelectionModel::clearSelection
                 );
 
@@ -53,6 +59,7 @@ MainWindow::MainWindow(QWidget *parent)
     /* create a language selection menu */
     createLanguageMenu();
     connect(langGroup, SIGNAL (triggered(QAction *)), this, SLOT (slotLanguageChanged(QAction *)));
+    loadLanguage(QLocale::system().name()); // load standard locale to ensure proper/complete ui translation
 
     /* ADD */
     connect(ui->lineEdit_2,
@@ -212,9 +219,9 @@ void switchTranslator(QTranslator& translator, const QString& filename) {
 }
 
 void MainWindow::loadLanguage(const QString& rLanguage) {
-    if(m_currLang != rLanguage) {
-        m_currLang = rLanguage;
-        QLocale locale = QLocale(m_currLang);
+    if(currLang != rLanguage) {
+        currLang = rLanguage;
+        QLocale locale = QLocale(currLang);
         QLocale::setDefault(locale);
         QString languageName = QLocale::languageToString(locale.language());
         switchTranslator(m_translator, QString("ARenamerTool_%1.qm").arg(rLanguage));
@@ -240,6 +247,8 @@ void MainWindow::changeEvent(QEvent* event) {
                 loadLanguage(locale);
             }
             break;
+        default:
+            break;
         }
     }
     QMainWindow::changeEvent(event);
@@ -248,7 +257,7 @@ void MainWindow::changeEvent(QEvent* event) {
 /* reload and display the treeView (files) */
 void MainWindow::repaintView()
 {
-    ui->treeView->setRootIndex(fileModel->setRootPath(path));
+    ui->fileTreeView->setRootIndex(fileModel->setRootPath(path));
 }
 
 /* Open - Button for opening directory from filebrowser dialog */
@@ -260,9 +269,9 @@ void MainWindow::on_pushButton_clicked()
 
     ui->lineEdit->setText(dirName);
 
-    ui->treeView->setRootIndex(fileModel->setRootPath(dirName));
-    ui->treeView->show();
-    connect(ui->treeView->selectionModel(),
+    ui->fileTreeView->setRootIndex(fileModel->setRootPath(dirName));
+    ui->fileTreeView->show();
+    connect(ui->fileTreeView->selectionModel(),
             SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
             this,
             SLOT(on_treeView_selectionChanged())
@@ -349,13 +358,13 @@ void MainWindow::controlsRedrawConnector()
 void MainWindow::on_treeView_2_clicked(const QModelIndex &index)
 {
     path = dirModel->filePath(index);
-    ui->treeView->setRootIndex(fileModel->setRootPath(path));
+    ui->fileTreeView->setRootIndex(fileModel->setRootPath(path));
 }
 
 /* Open - Button */
 void MainWindow::on_treeView_selectionChanged()
 {
-    QModelIndexList selectionList = ui->treeView->selectionModel()->selectedRows();
+    QModelIndexList selectionList = ui->fileTreeView->selectionModel()->selectedRows();
 
     QModelIndex selection;
     QList<RenameFile*> rFiles;
@@ -692,7 +701,7 @@ void MainWindow::on_comboBox_4_currentIndexChanged(int index)
 /* Date - Prefix RadioButton */
 void MainWindow::on_radioButton_4_clicked()
 {
-    if(ui->radioButton->isChecked()){
+    if(ui->radioButton_4->isChecked()){
         ui->radioButton_5->setChecked(false);
         ui->radioButton_6->setChecked(false);
         ui->spinBox_10->setEnabled(false);
@@ -704,7 +713,7 @@ void MainWindow::on_radioButton_4_clicked()
 /* Date - Suffix RadioButton */
 void MainWindow::on_radioButton_5_clicked()
 {
-    if(ui->radioButton->isChecked()){
+    if(ui->radioButton_5->isChecked()){
         ui->radioButton_4->setChecked(false);
         ui->radioButton_6->setChecked(false);
         ui->spinBox_10->setEnabled(false);
@@ -716,7 +725,7 @@ void MainWindow::on_radioButton_5_clicked()
 /* Date - Insert RadioButton */
 void MainWindow::on_radioButton_6_clicked()
 {
-    if(ui->radioButton->isChecked()){
+    if(ui->radioButton_6->isChecked()){
         ui->radioButton_4->setChecked(false);
         ui->radioButton_5->setChecked(false);
         ui->spinBox_10->setEnabled(true);

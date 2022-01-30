@@ -16,8 +16,23 @@ class RenameFileModel: public QFileSystemModel
         return fInfo;
     }
 
+
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const override
+    {
+        // horizontal Header
+        if ((role == Qt::DisplayRole) && (orientation == Qt::Horizontal)) {
+            switch(section){
+                case 0:
+                    return tr("Name");
+                case 4:
+                    return tr("New Name");
+            }
+        }
+        return QFileSystemModel::headerData(section, orientation, role);
+    }
+
     /* add fifth column to QFileSystemModel for display of new renamed filename */
-    int columnCount(const QModelIndex& parent = QModelIndex()) const
+    int columnCount(const QModelIndex& parent = QModelIndex()) const override
     {
         return QFileSystemModel::columnCount()+2;
     }
