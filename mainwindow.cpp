@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->splitter->setSizes(QList<int>()<<ui->splitter->width()*0.3<<ui->splitter->width()*0.7);
 
-    /* setup directory treeView */
+    /* setup dirTreeView */
     QModelIndex homeIndex = dirModel->setRootPath(path);
     ui->dirTreeView->setModel(dirModel);
     ui->dirTreeView->scrollTo(homeIndex);
@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->dirTreeView->hideColumn(2);
     ui->dirTreeView->hideColumn(3);
 
-    /* setup file treeView */
+    /* setup fileTreeView */
     fileModel = new RenameFileModel;
     fileModel->setFilter(QDir::Files | QDir::NoDotAndDotDot);
 
@@ -33,13 +33,13 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->fileTreeView->selectionModel(),
             SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
             this,
-            SLOT(on_treeView_selectionChanged())
+            SLOT(on_fileTreeView_selectionChanged())
             );
 
     ui->fileTreeView->setHeaderHidden(false);
 
     ui->fileTreeView->setColumnWidth(0,this->width()*0.3);
-    //ui->treeView->setColumnWidth(4,this->width()*0.4);
+    //ui->fileTreeView->setColumnWidth(4,this->width()*0.4);
 
     ui->fileTreeView->hideColumn(1);
     ui->fileTreeView->hideColumn(2);
@@ -47,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->fileTreeView->hideColumn(5);
 
 
-    /* clear selected items in treeView (files) when a dir in treeView_2 is clicked*/
+    /* clear selected items in fileTreeView when a dir in dirTreeView is clicked*/
     connect(ui->dirTreeView,
                 &QTreeView::clicked,
                 ui->fileTreeView->selectionModel(),
@@ -254,7 +254,7 @@ void MainWindow::changeEvent(QEvent* event) {
     QMainWindow::changeEvent(event);
 }
 
-/* reload and display the treeView (files) */
+/* reload and display the fileTreeView */
 void MainWindow::repaintView()
 {
     ui->fileTreeView->setRootIndex(fileModel->setRootPath(path));
@@ -312,7 +312,7 @@ void MainWindow::ifThenOptionResolver(int condition, int consequence)
     }
 }
 
-/* connect all controls (Buttons, CheckBoxes, LineEdits...) for instant refresh of treeView preview */
+/* connect all controls (Buttons, CheckBoxes, LineEdits...) for instant refresh of fileTreeView preview */
 void MainWindow::controlsRedrawConnector()
 {
     QList<QLineEdit*>lineEdits = ui->tabWidget->findChildren<QLineEdit*>();
@@ -354,15 +354,15 @@ void MainWindow::controlsRedrawConnector()
     }
 }
 
-/* Directory Selection - treeView2 */
-void MainWindow::on_treeView_2_clicked(const QModelIndex &index)
+/* Directory Selection - dirTreeView */
+void MainWindow::on_dirTreeView_clicked(const QModelIndex &index)
 {
     path = dirModel->filePath(index);
     ui->fileTreeView->setRootIndex(fileModel->setRootPath(path));
 }
 
 /* Open - Button */
-void MainWindow::on_treeView_selectionChanged()
+void MainWindow::on_fileTreeView_selectionChanged()
 {
     QModelIndexList selectionList = ui->fileTreeView->selectionModel()->selectedRows();
 

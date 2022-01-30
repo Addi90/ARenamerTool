@@ -63,7 +63,7 @@ protected slots:
 
 private slots:
     void on_pushButton_clicked();
-    void on_treeView_selectionChanged();
+    void on_fileTreeView_selectionChanged();
     void on_pushButton_2_clicked();
     void on_checkBox_stateChanged(int arg1);
     void on_checkBox_2_stateChanged(int arg1);
@@ -78,7 +78,7 @@ private slots:
     void on_checkBox_6_stateChanged(int arg1);
     void on_comboBox_currentIndexChanged(int index);
     void on_comboBox_2_currentIndexChanged(int index);
-    void on_treeView_2_clicked(const QModelIndex &index);
+    void on_dirTreeView_clicked(const QModelIndex &index);
     void on_checkBox_8_stateChanged(int arg1);
     void on_checkBox_11_stateChanged(int arg1);
     void on_comboBox_3_currentIndexChanged(int index);
