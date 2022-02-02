@@ -402,11 +402,20 @@ void MainWindow::on_fileTreeView_selectionChanged()
 /* Rename - Button */
 void MainWindow::on_pushButton_2_clicked()
 {
-    int renamed = 0;
-    renamed = Renamer::save();
+    /* Warning MessageBox - accept to rename n amount of files */
+    int selected = ui->fileTreeView->selectionModel()->selectedRows().count();
     QMessageBox msgBox;
-    msgBox.setText(QString("Successfully renamed ") + QVariant(renamed).toString()+ QString(" Files!"));
-    msgBox.exec();
+    msgBox.setText(tr("Rename ") + QVariant(selected).toString()+ QString(" File(s)?)"));
+    msgBox.setStandardButtons(QMessageBox::Abort | QMessageBox::Ok);
+    int ret = msgBox.exec();
+
+    if(ret == QMessageBox::Ok){
+        int renamed = 0;
+        renamed = Renamer::save();
+        QMessageBox msgBox;
+        msgBox.setText(QString("Successfully renamed ") + QVariant(renamed).toString()+ QString(" File(s)!"));
+        msgBox.exec();
+    }
 }
 
 

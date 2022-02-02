@@ -71,7 +71,9 @@ QString Renamer::preview(const int row)
     rename();
     foreach(RenameFile* rFile,files){
         if(rFile->modIndex.row() == row){
-            return rFile->newBaseName + rFile->fileEnding;
+            /* Show filetype extention:
+             * return rFile->newBaseName + rFile->fileEnding;*/
+            return rFile->newBaseName;
             break;
         };
     }
