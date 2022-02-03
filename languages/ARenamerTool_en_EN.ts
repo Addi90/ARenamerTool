@@ -301,16 +301,36 @@
         <source>Current Language changed to %1</source>
         <translation>Current Language changed to %1</translation>
     </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="408"/>
+        <source>Rename </source>
+        <translation>Rename </translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="408"/>
+        <source> File(s)?</source>
+        <translation> File(s)?</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="416"/>
+        <source>Successfully renamed </source>
+        <translation>Successfully renamed </translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="416"/>
+        <source> File(s)!</source>
+        <translation> File(s)!</translation>
+    </message>
 </context>
 <context>
     <name>RenameFileModel</name>
     <message>
-        <location filename="../renamefilemodel.h" line="26"/>
+        <location filename="../renamefilemodel.cpp" line="15"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../renamefilemodel.h" line="28"/>
+        <location filename="../renamefilemodel.cpp" line="17"/>
         <source>New Name</source>
         <translation>new Name</translation>
     </message>

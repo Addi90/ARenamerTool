@@ -41,9 +41,13 @@ QVariant RenameFileModel::data(const QModelIndex &index, int role) const
             //return QString("YourText");
         }
         case(Qt::ForegroundRole):
-        {return QVariant(QColor::fromRgb(10, 110, 40, 255));}
+        {
+            return QVariant(QColor::fromRgb(10, 110, 40, 255));
+        }
         case(Qt::TextAlignmentRole):
-        {return Qt::AlignLeft;}
+        {
+            return Qt::AlignLeft;
+        }
         default:{}
         }
     }
@@ -59,7 +63,9 @@ QVariant RenameFileModel::data(const QModelIndex &index, int role) const
             //return QString("YourText");
         }
         case(Qt::TextAlignmentRole):
-        {return Qt::AlignLeft;}
+        {
+            return Qt::AlignLeft;
+        }
         default:{}
         }
     }

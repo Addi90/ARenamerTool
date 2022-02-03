@@ -1,6 +1,6 @@
-# ARenamerTool
+﻿# A-RenamerTool
 
-The A (or Adrians) - Renamer is a tool for bulk renaming files in various ways. Its graphical user interface (GUI) lets the user easily select a file directory and then select the files to bulk rename. In the file selection view it also provides a live preview of the new filename for each selected file. It is written in C++ and utilizes the Qt-Framework.
+The A (or Adrian’s) – Renamer is a tool for bulk renaming files in various ways. Its graphical user interface (GUI) lets the user easily select a file directory and then select the files to bulk rename. In the file selection view it also provides a live preview of the new filename for each selected file. It is written in C++ and utilizes the Qt-Framework.
 
 The user has various ways adding, removing and replacing content to a filename with the help of different modifiers that also can be used at the same time:
 

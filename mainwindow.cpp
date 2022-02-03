@@ -186,13 +186,17 @@ void MainWindow::createLanguageMenu() {
     langGroup = new QActionGroup(ui->menuLanguage);
     langGroup->setExclusive(true);
 
-    connect(langGroup, SIGNAL (triggered(QAction *)), this, SLOT (slotLanguageChanged(QAction *)));
+    connect(langGroup,
+            SIGNAL (triggered(QAction *)),
+            this,
+            SLOT (slotLanguageChanged(QAction *))
+            );
 
     /* get system locale */
     QString defaultLocale = QLocale::system().name(); // e.g. "de_DE"
 
     /* get available translation files (in app. dir) */
-    QDir dir(QApplication::applicationDirPath());
+    QDir dir(QApplication::applicationDirPath() + "/.qm/");
     QStringList fileNames = dir.entryList(QStringList("ARenamerTool_*.qm"));
 
     for (int i = 0; i < fileNames.size(); ++i) {
@@ -233,7 +237,7 @@ void switchTranslator(QTranslator& translator, const QString& filename) {
 
     // load the new translator
     QString path = QApplication::applicationDirPath();
-    if(translator.load(path + '/'+ filename)) // load a .qm file
+    if(translator.load(path + QString("/.qm/") + filename)) // load a .qm file
         QApplication::installTranslator(&translator);
 }
 
@@ -243,9 +247,15 @@ void MainWindow::loadLanguage(const QString& rLanguage) {
         QLocale locale = QLocale(currLang);
         QLocale::setDefault(locale);
         QString languageName = QLocale::languageToString(locale.language());
-        switchTranslator(m_translator, QString("ARenamerTool_%1.qm").arg(rLanguage));
+        switchTranslator(m_translator,
+                         QString("ARenamerTool_%1.qm")
+                         .arg(rLanguage)
+                         );
         switchTranslator(m_translatorQt, QString("qt_%1.qm").arg(rLanguage));
-        ui->statusbar->showMessage(tr("Current Language changed to %1").arg(languageName),3000);
+        ui->statusbar->showMessage(tr("Current Language changed to %1")
+                                   .arg(languageName),
+                                   3000
+                                   );
     }
 }
 
@@ -405,7 +415,7 @@ void MainWindow::on_pushButton_2_clicked()
     /* Warning MessageBox - accept to rename n amount of files */
     int selected = ui->fileTreeView->selectionModel()->selectedRows().count();
     QMessageBox msgBox;
-    msgBox.setText(tr("Rename ") + QVariant(selected).toString()+ QString(" File(s)?)"));
+    msgBox.setText(tr("Rename ") + QVariant(selected).toString()+ tr(" File(s)?"));
     msgBox.setStandardButtons(QMessageBox::Abort | QMessageBox::Ok);
     int ret = msgBox.exec();
 
@@ -413,7 +423,7 @@ void MainWindow::on_pushButton_2_clicked()
         int renamed = 0;
         renamed = Renamer::save();
         QMessageBox msgBox;
-        msgBox.setText(QString("Successfully renamed ") + QVariant(renamed).toString()+ QString(" File(s)!"));
+        msgBox.setText(tr("Successfully renamed ") + QVariant(renamed).toString()+ tr(" File(s)!"));
         msgBox.exec();
     }
 }
