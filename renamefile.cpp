@@ -51,11 +51,6 @@ bool RenameFile::renameFile()
     return false;
 }
 
-bool RenameFile::operator<(const RenameFile &other) const
-{
-    return modIndex.row() < other.modIndex.row();
-}
-
 RenameFile::RenameFile(const QModelIndex &modelIndex)
 {
 
@@ -74,4 +69,8 @@ RenameFile::RenameFile(const QModelIndex &modelIndex)
         fileEnding = "";
     }
     newBaseName = baseName;
+}
+
+bool RenameFile::renameFileLessThan(const RenameFile* a,const RenameFile* b){
+    return a->modIndex.row() < b->modIndex.row();
 }

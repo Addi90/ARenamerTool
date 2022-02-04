@@ -8,8 +8,11 @@ unsigned int NumberModifier::padding;
 
 int NumberModifier::modify(QList<RenameFile *> *renameFileList)
 {
+    std::sort(renameFileList->begin(),renameFileList->end(),RenameFile::renameFileLessThan);
+
     int i;
     for(i=0;i< renameFileList->length();i++){
+
         QString num = QString::number(startNum+i);
 
         /* add padding to number */

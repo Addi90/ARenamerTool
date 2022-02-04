@@ -349,6 +349,7 @@ void MainWindow::controlsRedrawConnector()
     QList<QSpinBox*>spinBoxes = ui->tabWidget->findChildren<QSpinBox*>();
     QList<QComboBox*>comboBoxes = ui->tabWidget->findChildren<QComboBox*>();
     QList<QDateEdit*>dateEdits = ui->tabWidget->findChildren<QDateEdit*>();
+    QList<QRadioButton*>radioButtons = ui->tabWidget->findChildren<QRadioButton*>();
 
 
     foreach(QLineEdit* lineEdit,lineEdits){
@@ -381,6 +382,13 @@ void MainWindow::controlsRedrawConnector()
                 this,
                 &MainWindow::repaintView);
     }
+    foreach(QRadioButton* radioButton,radioButtons){
+        connect(radioButton,
+                &QRadioButton::clicked,
+                this,
+                &MainWindow::repaintView);
+    }
+
 }
 
 /* Directory Selection - dirTreeView */
@@ -390,7 +398,7 @@ void MainWindow::on_dirTreeView_clicked(const QModelIndex &index)
     ui->fileTreeView->setRootIndex(fileModel->setRootPath(path));
 }
 
-/* Open - Button */
+/* File Selection - get preview of new filename if selected */
 void MainWindow::on_fileTreeView_selectionChanged()
 {
     QModelIndexList selectionList = ui->fileTreeView->selectionModel()->selectedRows();
@@ -406,6 +414,7 @@ void MainWindow::on_fileTreeView_selectionChanged()
         rFiles.append(rFile);
     };
     Renamer::setFiles(rFiles);
+    repaintView();
 }
 
 

@@ -35,7 +35,8 @@ public:
 
     bool renameFile();
 
-    bool operator<(const RenameFile& other) const;
+    static bool renameFileLessThan(const RenameFile* a,const RenameFile* b);
+
 };
 
 
