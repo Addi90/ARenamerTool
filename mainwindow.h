@@ -90,5 +90,7 @@ private slots:
     void on_checkBox_13_stateChanged(int arg1);
 
     void repaintView();
+    void on_spinBox_8_valueChanged(int arg1);
+    void on_spinBox_9_valueChanged(int arg1);
 };
 #endif // MAINWINDOW_H

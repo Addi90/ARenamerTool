@@ -522,6 +522,22 @@ void MainWindow::on_checkBox_13_stateChanged(int arg1)
     }
 }
 
+/* Remove range - SpinBox beginning of range */
+void MainWindow::on_spinBox_8_valueChanged(int arg1)
+{
+    if(ui->spinBox_9->value()<arg1){
+        ui->spinBox_9->setValue(arg1);
+    }
+}
+
+/* Remove range - SpinBox end of range */
+void MainWindow::on_spinBox_9_valueChanged(int arg1)
+{
+    if(ui->spinBox_8->value()>arg1){
+        ui->spinBox_8->setValue(arg1);
+    }
+}
+
 /* Replace - CheckBox */
 void MainWindow::on_checkBox_5_stateChanged(int arg1)
 {
@@ -780,5 +796,8 @@ void MainWindow::on_radioButton_6_clicked()
         DateModifier::options &= ~(DateModifier::SUFFIX | DateModifier::PREFIX);
     }
 }
+
+
+
 
 

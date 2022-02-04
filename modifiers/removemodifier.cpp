@@ -23,11 +23,22 @@ int RemoveModifier::modify(QList<RenameFile *> *renameFileList)
                     );
         }
         if((options & REMOVE_RANGE)
-                && (rangeEnd >= rangeStart)
-                && (rangeEnd < (*renameFileList).at(i)->newBaseName.length())
-                ){
-            (*renameFileList).at(i)->newBaseName =
-                    (*renameFileList).at(i)->newBaseName.replace(rangeStart,(rangeEnd-rangeStart),"");
+                && (rangeEnd >= rangeStart)){
+            /* check for length of filename in case if the set range is longer */
+            if(rangeEnd < (*renameFileList).at(i)->newBaseName.length()){
+                (*renameFileList).at(i)->newBaseName =
+                        (*renameFileList).at(i)->newBaseName.replace(
+                            rangeStart,
+                            (rangeEnd-rangeStart),
+                            "");
+            }
+            else{
+                (*renameFileList).at(i)->newBaseName =
+                        (*renameFileList).at(i)->newBaseName.replace(
+                            rangeStart,
+                            ((*renameFileList).at(i)->newBaseName.length()-rangeStart),
+                            "");
+            }
         }
 
     }
