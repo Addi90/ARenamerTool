@@ -11,12 +11,12 @@ int RemoveModifier::modify(QList<RenameFile *> *renameFileList)
     int i;
 
     for(i=0;i< renameFileList->length();i++){
-        if(options & REMOVE_FRONT){
+        if(frontNum > 0){
             (*renameFileList).at(i)->newBaseName = (*renameFileList).at(i)->newBaseName.mid(
                     frontNum
                     );
         }
-        if(options & REMOVE_BACK){
+        if(backNum > 0){
             (*renameFileList).at(i)->newBaseName = (*renameFileList).at(i)->newBaseName.left(
                     (*renameFileList).at(i)->newBaseName.length()-
                     backNum
@@ -24,6 +24,16 @@ int RemoveModifier::modify(QList<RenameFile *> *renameFileList)
         }
         if((options & REMOVE_RANGE)
                 && (rangeEnd >= rangeStart)){
+
+            if(options & REMOVE_UNTIL_END){
+                (*renameFileList).at(i)->newBaseName =
+                        (*renameFileList).at(i)->newBaseName.replace(
+                            rangeStart,
+                            ((*renameFileList).at(i)->newBaseName.length()-rangeStart),
+                            "");
+                continue;
+            }
+
             /* check for length of filename in case if the set range is longer */
             if(rangeEnd < (*renameFileList).at(i)->newBaseName.length()){
                 (*renameFileList).at(i)->newBaseName =

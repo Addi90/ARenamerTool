@@ -463,47 +463,28 @@ void MainWindow::on_checkBox_2_stateChanged(int arg1)
 {
     if(arg1){
         /* rem. front & back n chars CheckBoxes/SpinBoxes */
-        ui->checkBox_3->setEnabled(true);
-        ui->checkBox_4->setEnabled(true);
         ui->checkBox_13->setEnabled(true);
+        ui->spinBox->setEnabled(true);
+        ui->spinBox_2->setEnabled(true);
+        if(ui->checkBox_13->isChecked()){
+            ui->spinBox_8->setEnabled(true);
+            if(ui->checkBox_14->isChecked()){
+                ui->spinBox_9->setEnabled(false);
+            }
+            else
+                ui->spinBox_9->setEnabled(true);
+            ui->checkBox_14->setEnabled(true);
+        }
         Renamer::modifiers |= Renamer::REMOVE;
     }
     else if(arg1 == Qt::Unchecked){
-        ui->checkBox_3->setEnabled(false);
-        ui->checkBox_4->setEnabled(false);
         ui->checkBox_13->setEnabled(false);
+        ui->checkBox_14->setEnabled(false);
         ui->spinBox->setEnabled(false);
         ui->spinBox_2->setEnabled(false);
+        ui->spinBox_8->setEnabled(false);
+        ui->spinBox_9->setEnabled(false);
         Renamer::modifiers &= ~(Renamer::REMOVE);
-    }
-}
-
-/* Remove n chars front - CheckBox */
-void MainWindow::on_checkBox_3_stateChanged(int arg1)
-{
-    if(arg1){
-        ui->spinBox->setEnabled(true);
-        RemoveModifier::frontNum = ui->spinBox->value();
-        RemoveModifier::options |= RemoveModifier::REMOVE_FRONT;
-    }
-    else if(arg1 == Qt::Unchecked){
-        ui->spinBox->setEnabled(false);
-        RemoveModifier::options &= ~(RemoveModifier::REMOVE_FRONT);
-    }
-
-}
-
-/* Remove n chars back - CheckBox */
-void MainWindow::on_checkBox_4_stateChanged(int arg1)
-{
-    if(arg1){
-        ui->spinBox_2->setEnabled(true);
-        RemoveModifier::backNum = ui->spinBox->value();
-        RemoveModifier::options |= RemoveModifier::REMOVE_BACK;
-    }
-    else if(arg1 == Qt::Unchecked){
-        ui->spinBox_2->setEnabled(false);
-        RemoveModifier::options &= ~(RemoveModifier::REMOVE_BACK);
     }
 }
 
@@ -513,11 +494,17 @@ void MainWindow::on_checkBox_13_stateChanged(int arg1)
     if(arg1 == Qt::Unchecked){
         ui->spinBox_8->setEnabled(false);
         ui->spinBox_9->setEnabled(false);
+        ui->checkBox_14->setEnabled(false);
         RemoveModifier::options &= ~(RemoveModifier::REMOVE_RANGE);
     }
     else {
         ui->spinBox_8->setEnabled(true);
-        ui->spinBox_9->setEnabled(true);
+        if(ui->checkBox_14->isChecked()){
+            ui->spinBox_9->setEnabled(false);
+        }
+        else
+            ui->spinBox_9->setEnabled(true);
+        ui->checkBox_14->setEnabled(true);
         RemoveModifier::options |= RemoveModifier::REMOVE_RANGE;
     }
 }
@@ -800,4 +787,15 @@ void MainWindow::on_radioButton_6_clicked()
 
 
 
+void MainWindow::on_checkBox_14_stateChanged(int arg1)
+{
+    if(arg1){
+        ui->spinBox_9->setEnabled(false);
+        RemoveModifier::options |= RemoveModifier::REMOVE_UNTIL_END;
+    }
+    else{
+        ui->spinBox_9->setEnabled(true);
+        RemoveModifier::options &= ~(RemoveModifier::REMOVE_UNTIL_END);
+    }
+}
 

@@ -7,9 +7,8 @@ class RemoveModifier
 {
 public:
     enum Option{
-            REMOVE_FRONT = 0x1,
-            REMOVE_BACK = 0x2,
-            REMOVE_RANGE = 0x4
+            REMOVE_RANGE = 0x1,
+            REMOVE_UNTIL_END = 0x2
         };
     Q_DECLARE_FLAGS(Options, Option)
     static unsigned int frontNum;

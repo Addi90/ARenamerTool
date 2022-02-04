@@ -285,6 +285,9 @@
               <property name="text">
                <string>Prefix Text</string>
               </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
              </widget>
             </item>
             <item row="1" column="0">
@@ -292,12 +295,18 @@
               <property name="text">
                <string>Suffix Text</string>
               </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
              </widget>
             </item>
             <item row="2" column="0">
              <widget class="QLabel" name="label_10">
               <property name="text">
                <string>Insert</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -337,7 +346,10 @@
             <item row="3" column="0">
              <widget class="QLabel" name="label_11">
               <property name="text">
-               <string>Insert-Pos.</string>
+               <string>Pos.</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -348,9 +360,6 @@
             <property name="rightMargin">
              <number>0</number>
             </property>
-            <item row="5" column="2">
-             <layout class="QHBoxLayout" name="horizontalLayout_8"/>
-            </item>
             <item row="5" column="0">
              <widget class="QLabel" name="label_9">
               <property name="sizePolicy">
@@ -360,7 +369,10 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>Insert-Pos.</string>
+               <string>Pos.</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -381,6 +393,12 @@
              <widget class="QLineEdit" name="lineEdit_6">
               <property name="enabled">
                <bool>false</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
               </property>
               <property name="focusPolicy">
                <enum>Qt::StrongFocus</enum>
@@ -419,7 +437,7 @@
                <bool>false</bool>
               </property>
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
@@ -446,6 +464,12 @@
               <property name="enabled">
                <bool>false</bool>
               </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
               <property name="focusPolicy">
                <enum>Qt::StrongFocus</enum>
               </property>
@@ -459,12 +483,21 @@
               <property name="text">
                <string>THEN</string>
               </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
              </widget>
             </item>
             <item row="1" column="2">
              <widget class="QCheckBox" name="checkBox_10">
               <property name="enabled">
                <bool>false</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
               </property>
               <property name="text">
                <string>case-sensitive</string>
@@ -476,12 +509,21 @@
               <property name="text">
                <string>IF</string>
               </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
              </widget>
             </item>
             <item row="1" column="1">
              <widget class="QCheckBox" name="checkBox_11">
               <property name="enabled">
                <bool>false</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
               </property>
               <property name="text">
                <string>RegEx</string>
@@ -532,6 +574,9 @@
               <property name="text">
                <string>with:</string>
               </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
              </widget>
             </item>
             <item row="0" column="0">
@@ -544,6 +589,9 @@
               </property>
               <property name="text">
                <string>Replace String:</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -648,8 +696,8 @@
               </item>
              </layout>
             </item>
-            <item row="1" column="0">
-             <widget class="QCheckBox" name="checkBox_4">
+            <item row="2" column="0">
+             <widget class="QCheckBox" name="checkBox_13">
               <property name="enabled">
                <bool>false</bool>
               </property>
@@ -659,21 +707,11 @@
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
               <property name="text">
-               <string>last n chars</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QSpinBox" name="spinBox">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
+               <string>Range</string>
               </property>
              </widget>
             </item>
@@ -690,35 +728,49 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="0">
-             <widget class="QCheckBox" name="checkBox_3">
+            <item row="0" column="1">
+             <widget class="QSpinBox" name="spinBox">
               <property name="enabled">
                <bool>false</bool>
               </property>
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
-              </property>
-              <property name="text">
-               <string>first n chars</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="0">
-             <widget class="QCheckBox" name="checkBox_13">
+            <item row="3" column="1" alignment="Qt::AlignRight">
+             <widget class="QCheckBox" name="checkBox_14">
               <property name="enabled">
                <bool>false</bool>
               </property>
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
               </property>
               <property name="text">
-               <string>Range</string>
+               <string>until end</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_22">
+              <property name="text">
+               <string>first n chars</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_23">
+              <property name="text">
+               <string>last n chars</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -784,6 +836,9 @@
               <property name="text">
                <string>Padding</string>
               </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
              </widget>
             </item>
             <item row="2" column="1">
@@ -799,6 +854,9 @@
               </property>
               <property name="text">
                <string>Insert-Pos.</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -945,6 +1003,9 @@
               <property name="text">
                <string>Start-Pos.</string>
               </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
              </widget>
             </item>
            </layout>
@@ -995,7 +1056,7 @@
                  <locale language="English" country="UnitedKingdom"/>
                 </property>
                 <property name="text">
-                 <string>Insert-Pos.</string>
+                 <string>Pos.</string>
                 </property>
                 <property name="alignment">
                  <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1022,9 +1083,6 @@
                </widget>
               </item>
              </layout>
-            </item>
-            <item row="0" column="2">
-             <layout class="QHBoxLayout" name="horizontalLayout_10"/>
             </item>
             <item row="4" column="1">
              <widget class="QRadioButton" name="radioButton_5">
@@ -1060,6 +1118,9 @@
               <property name="text">
                <string>Position</string>
               </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
              </widget>
             </item>
             <item row="2" column="2">
@@ -1094,7 +1155,10 @@
                <locale language="English" country="UnitedKingdom"/>
               </property>
               <property name="text">
-               <string>Display Type</string>
+               <string>Format</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -1149,6 +1213,9 @@
               </property>
               <property name="text">
                <string>Source</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
               </property>
              </widget>
             </item>
@@ -1242,7 +1309,7 @@
      <x>0</x>
      <y>0</y>
      <width>883</width>
-     <height>23</height>
+     <height>30</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuSettings">
@@ -1288,13 +1355,15 @@
   <tabstop>dirTreeView</tabstop>
   <tabstop>pushButton</tabstop>
   <tabstop>lineEdit</tabstop>
+  <tabstop>pushButton_3</tabstop>
+  <tabstop>pushButton_4</tabstop>
   <tabstop>tabWidget</tabstop>
   <tabstop>checkBox</tabstop>
-  <tabstop>checkBox_6</tabstop>
   <tabstop>lineEdit_2</tabstop>
   <tabstop>lineEdit_3</tabstop>
   <tabstop>lineEdit_8</tabstop>
   <tabstop>spinBox_6</tabstop>
+  <tabstop>checkBox_6</tabstop>
   <tabstop>comboBox</tabstop>
   <tabstop>lineEdit_6</tabstop>
   <tabstop>checkBox_11</tabstop>
@@ -1303,29 +1372,34 @@
   <tabstop>lineEdit_7</tabstop>
   <tabstop>spinBox_5</tabstop>
   <tabstop>checkBox_5</tabstop>
-  <tabstop>checkBox_2</tabstop>
   <tabstop>lineEdit_4</tabstop>
   <tabstop>checkBox_9</tabstop>
   <tabstop>checkBox_8</tabstop>
   <tabstop>lineEdit_5</tabstop>
-  <tabstop>checkBox_3</tabstop>
+  <tabstop>checkBox_2</tabstop>
   <tabstop>spinBox</tabstop>
-  <tabstop>checkBox_4</tabstop>
   <tabstop>spinBox_2</tabstop>
   <tabstop>checkBox_13</tabstop>
   <tabstop>spinBox_8</tabstop>
   <tabstop>spinBox_9</tabstop>
+  <tabstop>checkBox_14</tabstop>
   <tabstop>checkBox_7</tabstop>
-  <tabstop>checkBox_12</tabstop>
   <tabstop>radioButton</tabstop>
   <tabstop>spinBox_3</tabstop>
   <tabstop>radioButton_3</tabstop>
   <tabstop>spinBox_7</tabstop>
   <tabstop>radioButton_2</tabstop>
   <tabstop>spinBox_4</tabstop>
+  <tabstop>checkBox_12</tabstop>
   <tabstop>comboBox_3</tabstop>
+  <tabstop>lineEdit_9</tabstop>
   <tabstop>comboBox_4</tabstop>
   <tabstop>dateEdit</tabstop>
+  <tabstop>radioButton_4</tabstop>
+  <tabstop>radioButton_5</tabstop>
+  <tabstop>radioButton_6</tabstop>
+  <tabstop>spinBox_10</tabstop>
+  <tabstop>pushButton_2</tabstop>
  </tabstops>
  <resources/>
  <connections/>

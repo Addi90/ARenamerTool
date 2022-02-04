@@ -67,9 +67,6 @@ private slots:
     void on_pushButton_2_clicked();
     void on_checkBox_stateChanged(int arg1);
     void on_checkBox_2_stateChanged(int arg1);
-
-    void on_checkBox_3_stateChanged(int arg1);
-    void on_checkBox_4_stateChanged(int arg1);
     void on_checkBox_5_stateChanged(int arg1);
     void on_checkBox_7_stateChanged(int arg1);
     void on_radioButton_clicked();
@@ -92,5 +89,6 @@ private slots:
     void repaintView();
     void on_spinBox_8_valueChanged(int arg1);
     void on_spinBox_9_valueChanged(int arg1);
+    void on_checkBox_14_stateChanged(int arg1);
 };
 #endif // MAINWINDOW_H
