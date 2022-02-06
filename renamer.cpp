@@ -80,6 +80,9 @@ int Renamer::checkForDuplicates(){
     rename();
     int ret = 0;
     foreach(RenameFile* rFile,files){
+        if(rFile->baseName == rFile->newBaseName){
+            continue;
+        }
         QFile f;
         QString s = QString(rFile->filePath + '/' + rFile->newBaseName + rFile->fileEnding);
 
