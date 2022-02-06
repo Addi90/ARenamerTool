@@ -36,23 +36,28 @@ DateModifier::DateModifier()
 QString DateModifier::makeDate(RenameFile *renameFile)
 {
     QDateTime fTime;
-    QStringView dateFormat;
+    QString dateFormat;
+    QDate date;
+
 
     /* get date information according to set source */
     if(options & DATE_MADE){
         fTime = renameFile->file->fileTime(QFileDevice::FileBirthTime);
+        date = fTime.date();
     }
     else if(options & DATE_MOD){
         fTime = renameFile->file->fileTime(QFileDevice::FileModificationTime);
+        date = fTime.date();
     }
     else if(options & DATE_TODAY){
-        fTime = QDateTime(QDate::currentDate(),QTime::currentTime());
+        date = QDate::currentDate();
     }
     else if(options & DATE_CUSTOM){
-        fTime = QDateTime(customDate,QTime::currentTime());
+        date = customDate;
     }
 
     /* format date string according to set mode */
+
     if(options & MODE_DMY){
         dateFormat = "dd" + sepStr + "MM" + sepStr + "yyyy";
     }
@@ -63,7 +68,6 @@ QString DateModifier::makeDate(RenameFile *renameFile)
         dateFormat = "MM" + sepStr + "dd" + sepStr + "yyyy";
     }
 
-    QDate date = fTime.date();
     dateStr = date.toString(dateFormat);
     return dateStr;
 }

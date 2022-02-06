@@ -53,10 +53,20 @@ int Renamer::save()
     /* apply modifiers */
     rename();
 
+    foreach(RenameFile* rFile,files){
+        QFile f;
+        QString s = QString(rFile->filePath + '/' + rFile->newBaseName + rFile->fileEnding);
+
+        if(f.exists(s)){
+            qDebug() << "already exists: " << s;
+        }
+    }
+
     /* rename all, check if it is a file (exists=true) or a dir (exists=false),
      * increment count if renaming worked */
     foreach(RenameFile* rFile,files){
         if(rFile->file->exists()){
+
             if(rFile->renameFile()){
                 count++;
                 qDebug() << "renamed to: " << rFile->getFile()->fileName();
@@ -64,6 +74,21 @@ int Renamer::save()
         }
     }
     return count;
+}
+
+int Renamer::checkForDuplicates(){
+    rename();
+    int ret = 0;
+    foreach(RenameFile* rFile,files){
+        QFile f;
+        QString s = QString(rFile->filePath + '/' + rFile->newBaseName + rFile->fileEnding);
+
+        if(f.exists(s)){
+            qDebug() << "already exists: " << s;
+            ret++;
+        }
+    }
+    return ret;
 }
 
 QString Renamer::preview(const int row)

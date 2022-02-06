@@ -300,11 +300,6 @@ void MainWindow::on_pushButton_clicked()
 
     ui->fileTreeView->setRootIndex(fileModel->setRootPath(dirName));
     ui->fileTreeView->show();
-    connect(ui->fileTreeView->selectionModel(),
-            SIGNAL(selectionChanged(const QItemSelection &, const QItemSelection &)),
-            this,
-            SLOT(on_treeView_selectionChanged())
-            );
 }
 
 
@@ -421,6 +416,20 @@ void MainWindow::on_fileTreeView_selectionChanged()
 /* Rename - Button */
 void MainWindow::on_pushButton_2_clicked()
 {
+    /* Warning MessageBox - check for existing duplicates for new filenames */
+    int numDupl = Renamer::checkForDuplicates();
+    if(numDupl){
+        QMessageBox msgBox;
+        msgBox.setText(tr("Found existing duplicate files for ") +
+                       QVariant(numDupl).toString() +
+                       tr(" new filename(s)!")
+                       );
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.setStandardButtons(QMessageBox::Abort);
+        msgBox.exec();
+        return;
+    }
+
     /* Warning MessageBox - accept to rename n amount of files */
     int selected = ui->fileTreeView->selectionModel()->selectedRows().count();
     QMessageBox msgBox;

@@ -48,6 +48,7 @@ public:
     static int resetNewBaseName();
     static int resetFilesList();
     static void sortList();
+    static int checkForDuplicates();
     const QList<RenameFile*> &getFiles() const;
     static void setFiles(const QList<RenameFile*> &newFiles);
 
