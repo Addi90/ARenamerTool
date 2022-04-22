@@ -457,6 +457,14 @@ void MainWindow::on_checkBox_stateChanged(int arg1)
         ui->lineEdit_8->setEnabled(true);
         ui->spinBox_6->setEnabled(true);
         Renamer::modifiers |= Renamer::ADD;
+
+        /* TabBar Symbol for Active Modifiers */
+        if(ui->checkBox_6->isChecked()){
+            ui->tabWidget->setTabText(0,QString(ui->tabWidget->tabText(0)).chopped(2));
+            ui->tabWidget->setTabText(0,QString(ui->tabWidget->tabText(0))+' '+QChar(0x00002777));
+        }
+        else
+            ui->tabWidget->setTabText(0,QString(ui->tabWidget->tabText(0))+' '+QChar(0x00002776));
     }
     else if(arg1 == Qt::Unchecked){
         ui->lineEdit_2->setEnabled(false);
@@ -464,6 +472,14 @@ void MainWindow::on_checkBox_stateChanged(int arg1)
         ui->lineEdit_8->setEnabled(false);
         ui->spinBox_6->setEnabled(false);
         Renamer::modifiers &= ~(Renamer::ADD);
+
+        /* TabBar Symbol for Active Modifiers */
+        if(ui->checkBox_6->isChecked()){
+            ui->tabWidget->setTabText(0,QString(ui->tabWidget->tabText(0)).chopped(2));
+            ui->tabWidget->setTabText(0,QString(ui->tabWidget->tabText(0))+' '+QChar(0x00002776));
+        }
+        else
+            ui->tabWidget->setTabText(0,QString(ui->tabWidget->tabText(0)).chopped(2));
     }
 }
 
@@ -485,6 +501,14 @@ void MainWindow::on_checkBox_2_stateChanged(int arg1)
             ui->checkBox_14->setEnabled(true);
         }
         Renamer::modifiers |= Renamer::REMOVE;
+
+        /* TabBar Symbol for Active Modifiers */
+        if(ui->checkBox_5->isChecked()){
+            ui->tabWidget->setTabText(1,QString(ui->tabWidget->tabText(1)).chopped(2));
+            ui->tabWidget->setTabText(1,QString(ui->tabWidget->tabText(1))+' '+QChar(0x00002777));
+        }
+        else
+            ui->tabWidget->setTabText(1,QString(ui->tabWidget->tabText(1))+' '+QChar(0x00002776));
     }
     else if(arg1 == Qt::Unchecked){
         ui->checkBox_13->setEnabled(false);
@@ -494,6 +518,14 @@ void MainWindow::on_checkBox_2_stateChanged(int arg1)
         ui->spinBox_8->setEnabled(false);
         ui->spinBox_9->setEnabled(false);
         Renamer::modifiers &= ~(Renamer::REMOVE);
+
+        /* TabBar Symbol for Active Modifiers */
+        if(ui->checkBox_5->isChecked()){
+            ui->tabWidget->setTabText(1,QString(ui->tabWidget->tabText(1)).chopped(2));
+            ui->tabWidget->setTabText(1,QString(ui->tabWidget->tabText(1))+' '+QChar(0x00002776));
+        }
+        else
+            ui->tabWidget->setTabText(1,QString(ui->tabWidget->tabText(1)).chopped(2));
     }
 }
 
@@ -544,6 +576,14 @@ void MainWindow::on_checkBox_5_stateChanged(int arg1)
         ui->checkBox_9->setEnabled(true);
         ReplaceModifier::replaceStr = ui->lineEdit_4->text();
         Renamer::modifiers |= Renamer::REPLACE;
+
+        /* TabBar Symbol for Active Modifiers */
+        if(ui->checkBox_2->isChecked()){
+            ui->tabWidget->setTabText(1,QString(ui->tabWidget->tabText(1)).chopped(2));
+            ui->tabWidget->setTabText(1,QString(ui->tabWidget->tabText(1))+' '+QChar(0x00002777));
+        }
+        else
+            ui->tabWidget->setTabText(1,QString(ui->tabWidget->tabText(1))+' '+QChar(0x00002776));
     }
     else if(arg1 == Qt::Unchecked){
         ui->lineEdit_4->setEnabled(false);
@@ -551,6 +591,14 @@ void MainWindow::on_checkBox_5_stateChanged(int arg1)
         ui->checkBox_8->setEnabled(false);
         ui->checkBox_9->setEnabled(false);
         Renamer::modifiers &= ~(Renamer::REPLACE);
+
+        /* TabBar Symbol for Active Modifiers */
+        if(ui->checkBox_2->isChecked()){
+            ui->tabWidget->setTabText(1,QString(ui->tabWidget->tabText(1)).chopped(2));
+            ui->tabWidget->setTabText(1,QString(ui->tabWidget->tabText(1))+' '+QChar(0x00002776));
+        }
+        else
+            ui->tabWidget->setTabText(1,QString(ui->tabWidget->tabText(1)).chopped(2));
     }
 }
 
@@ -566,6 +614,14 @@ void MainWindow::on_checkBox_7_stateChanged(int arg1)
         NumberModifier::startNum = ui->spinBox_3->value();
         NumberModifier::insertPos = ui->spinBox_4->value();
         Renamer::modifiers |= Renamer::COUNTING;
+
+        /* TabBar Symbol for Active Modifiers */
+        if(ui->checkBox_12->isChecked()){
+            ui->tabWidget->setTabText(2,QString(ui->tabWidget->tabText(2)).chopped(2));
+            ui->tabWidget->setTabText(2,QString(ui->tabWidget->tabText(2))+' '+QChar(0x00002777));
+        }
+        else
+            ui->tabWidget->setTabText(2,QString(ui->tabWidget->tabText(2))+' '+QChar(0x00002776));
     }
     else if(arg1 == Qt::Unchecked){
         ui->radioButton->setEnabled(false);
@@ -574,6 +630,14 @@ void MainWindow::on_checkBox_7_stateChanged(int arg1)
         ui->spinBox_3->setEnabled(false);
         ui->spinBox_7->setEnabled(false);
         Renamer::modifiers &= ~(Renamer::COUNTING);
+
+        /* TabBar Symbol for Active Modifiers */
+        if(ui->checkBox_12->isChecked()){
+            ui->tabWidget->setTabText(2,QString(ui->tabWidget->tabText(2)).chopped(2));
+            ui->tabWidget->setTabText(2,QString(ui->tabWidget->tabText(2))+' '+QChar(0x00002776));
+        }
+        else
+            ui->tabWidget->setTabText(2,QString(ui->tabWidget->tabText(2)).chopped(2));
     }
 }
 
@@ -628,6 +692,14 @@ void MainWindow::on_checkBox_6_stateChanged(int arg1)
         ui->checkBox_11->setEnabled(true);
         ifThenOptionResolver(ui->comboBox->currentIndex(),ui->comboBox_2->currentIndex());
         Renamer::modifiers |= Renamer::IF_THEN;
+
+        /* TabBar Symbol for Active Modifiers */
+        if(ui->checkBox->isChecked()){
+            ui->tabWidget->setTabText(0,QString(ui->tabWidget->tabText(0)).chopped(2));
+            ui->tabWidget->setTabText(0,QString(ui->tabWidget->tabText(0))+' '+QChar(0x00002777));
+        }
+        else
+            ui->tabWidget->setTabText(0,QString(ui->tabWidget->tabText(0))+' '+QChar(0x00002776));
     }
     else if(arg1 == Qt::Unchecked){
         ui->comboBox->setEnabled(false);
@@ -638,6 +710,14 @@ void MainWindow::on_checkBox_6_stateChanged(int arg1)
         ui->checkBox_10->setEnabled(false);
         ui->checkBox_11->setEnabled(false);
         Renamer::modifiers &= ~(Renamer::IF_THEN);
+
+        /* TabBar Symbol for Active Modifiers */
+        if(ui->checkBox->isChecked()){
+            ui->tabWidget->setTabText(0,QString(ui->tabWidget->tabText(0)).chopped(2));
+            ui->tabWidget->setTabText(0,QString(ui->tabWidget->tabText(0))+' '+QChar(0x00002776));
+        }
+        else
+            ui->tabWidget->setTabText(0,QString(ui->tabWidget->tabText(0)).chopped(2));
     }
 }
 
@@ -700,6 +780,14 @@ void MainWindow::on_checkBox_12_stateChanged(int arg1)
         ui->dateEdit->setDate(QDate::currentDate());
 
         Renamer::modifiers |= Renamer::DATE;
+
+        /* TabBar Symbol for Active Modifiers */
+        if(ui->checkBox_7->isChecked()){
+            ui->tabWidget->setTabText(2,QString(ui->tabWidget->tabText(2)).chopped(2));
+            ui->tabWidget->setTabText(2,QString(ui->tabWidget->tabText(2))+' '+QChar(0x00002777));
+        }
+        else
+            ui->tabWidget->setTabText(2,QString(ui->tabWidget->tabText(2))+' '+QChar(0x00002776));
     }
     else if(arg1 == Qt::Unchecked){
         ui->comboBox_3->setEnabled(false);
@@ -711,6 +799,14 @@ void MainWindow::on_checkBox_12_stateChanged(int arg1)
         ui->spinBox_10->setEnabled(false);
         ui->dateEdit->setEnabled(false);
         Renamer::modifiers &= ~(Renamer::DATE);
+
+        /* TabBar Symbol for Active Modifiers */
+        if(ui->checkBox_7->isChecked()){
+            ui->tabWidget->setTabText(2,QString(ui->tabWidget->tabText(2)).chopped(2));
+            ui->tabWidget->setTabText(2,QString(ui->tabWidget->tabText(2))+' '+QChar(0x00002776));
+        }
+        else
+            ui->tabWidget->setTabText(2,QString(ui->tabWidget->tabText(2)).chopped(2));
     }
 }
 
