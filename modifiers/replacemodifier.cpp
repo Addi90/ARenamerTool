@@ -17,6 +17,7 @@ int ReplaceModifier::modify(QList<RenameFile *> *renameFileList)
     for(i=0;i< renameFileList->length();i++){
         if(options & REPLACE_REGEX){
             if(options & CASE_SENSITIVE){
+
                 (*renameFileList).at(i)->newBaseName.replace(regexStr,newStr);
             }
             else{
@@ -26,11 +27,10 @@ int ReplaceModifier::modify(QList<RenameFile *> *renameFileList)
         }
         else{
             if(options & CASE_SENSITIVE){
-                (*renameFileList).at(i)->newBaseName.replace(replaceStr,newStr);
+                (*renameFileList).at(i)->newBaseName.replace(replaceStr,newStr,Qt::CaseSensitive);
             }
             else{
-                regexStr.setPatternOptions(QRegularExpression::CaseInsensitiveOption);
-                (*renameFileList).at(i)->newBaseName.replace(replaceStr,newStr);
+                (*renameFileList).at(i)->newBaseName.replace(replaceStr,newStr,Qt::CaseInsensitive);
             }
         }
             (*renameFileList).at(i)->newBaseName.replace(replaceStr,newStr);

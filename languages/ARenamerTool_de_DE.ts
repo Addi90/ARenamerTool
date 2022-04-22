@@ -4,9 +4,8 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.ui" line="26"/>
         <source>MainWindow</source>
-        <translation>A-Renamer Tool</translation>
+        <translation type="vanished">A-Renamer Tool</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="1128"/>
@@ -94,6 +93,11 @@
         <location filename="../mainwindow.ui" line="433"/>
         <source>CONTAINS</source>
         <translation>ENTHÄLT</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.ui" line="26"/>
+        <source>A-Renamer Tool</source>
+        <translation type="unfinished">A-Renamer Tool</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="358"/>
